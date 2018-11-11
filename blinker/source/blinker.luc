@@ -1,0 +1,77 @@
+module blinker (
+    input clk,    // clock, default 50 MHz = 50 million clock cycles per sec
+    input rst,    // reset
+    output blink  // output to LED, variable "out" renamed to "blink"
+  ) {
+  
+  dff counter[25](#INIT(0), .clk(clk), .rst(rst)); 
+  //2^25 cycles per blink
+
+  /*
+  declaration of flipflop using 'dff'
+  dff named counter, 25 bits wide
+  
+  .module_input(signal) 
+  
+  clk of module connected to flipflop clk input - .clk(clk)
+  rst of module connected to flipflop rst input - .rst(rst)
+  */
+  
+  /*
+  FLIPFLOP:
+  copy d to q whenever clk is high 
+  d is input
+  q is output
+
+  everytime rst goes high, counter.q is initialised to 0
+  #INIT parameter is initial value, init to 0 otherwise
+  */
+
+  /* Math of blinker:
+  2^25 = 0 to 33554431
+  when counter.q <16777216, counter.q[24] is 0
+  when counter.q >=16777216, counter.q[24] is 1
+  1 blink = 2^25 cycles
+  1 second  = 50mil cycles
+
+  time/blink = 2^25 (cycles/blink)/ 50mil (cycles/sec) = 0.67s
+
+  to double the time between blinks, double the number of cycles per blink
+  (1 blink = 2^26 cycles)
+  */
+
+  always {
+    blink = counter.q[24]; 
+    //connect output blink to most significant bit of counter
+    //most significant bit is 0 half the time and 1 half the time
+    counter.d = counter.q + 1; 
+    //input d to output q, everytime d is high, q increase by 1
+
+  }
+}
+
+/*
+MODULE CONNECTIONS:
+
+dff counter[25](.clk(clk), .rst(rst));
+
+.clk(clk), .rst(rst) {
+  dff counter1[12];   //flipflop counter with 12bits
+  dff counter2[7];
+  dff counter3[8];
+}
+
+.clk(clk) {
+  .rst(rst) {
+    dff counter1[12];
+    dff counter2[7];
+  }
+  dff counter3[8];
+}
+
+.clk(clk) {
+  dff counter1[12](.rst(rst));
+  dff counter2[7];
+  dff counter3[8];
+}
+*/

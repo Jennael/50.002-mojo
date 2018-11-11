@@ -1,0 +1,113 @@
+module mojo_top (
+    input clk,              // 50MHz clock
+    input rst_n,            // reset button (active low)
+    output led [8],         // 8 user controllable LEDs
+    input cclk,             // configuration clock, AVR ready when high
+    output spi_miso,        // AVR SPI MISO
+    input spi_ss,           // AVR SPI Slave Select
+    input spi_mosi,         // AVR SPI MOSI
+    input spi_sck,          // AVR SPI Clock
+    output spi_channel [4], // AVR general purpose pins (used by default to select ADC channel)
+    input avr_tx,           // AVR TX (FPGA RX)
+    output avr_rx,          // AVR RX (FPGA TX)
+    input avr_rx_busy,      // AVR RX buffer full
+    
+    output io_led [3][8],   // LEDs on IO Shield
+    
+    input io_dip [3][8]     // DIP switches on IO Shield
+    
+    output io_seg [8],      
+    // 7-segment LEDs on IO Shield (8-bit inclusive of dot)
+    output io_sel [4],      
+    // Digit select on 4 7-segment display, active low (0 = on, 1 = off)
+    input io_button [5],   
+    /* 5 buttons on IO Shield: 
+    io_button[0] is up, 
+    io_button[1] is center, 
+    io_button[2] is down, 
+    io_button[3] is left, and 
+    io_button[4] is right
+    */
+
+  ) {
+  
+  sig rst;                  // reset signal
+  
+  .clk(clk) {
+    // The reset conditioner is used to synchronize the reset signal to the FPGA
+    // clock. This ensures the entire FPGA comes out of reset at the same time.
+    reset_conditioner reset_cond;
+    
+    edge_detector edge_detector (#RISE(1), #FALL(0));
+    
+    .rst(rst) {
+      multi_seven_seg seg;
+      multi_dec_ctr dec_ctr;
+      counter ctr (#SIZE(1), #DIV(24));
+    }
+  }
+  
+  always {
+    reset_cond.in = ~rst_n;   // input raw inverted reset signal
+    rst = reset_cond.out;     // conditioned reset
+    
+    led = c{3b0, io_button};  // connect buttons to LEDs
+    spi_miso = bz;            // not using SPI
+    spi_channel = bzzzz;      // not using flags
+    avr_rx = bz;              // not using serial port
+    
+    /*
+    VALUES: b – binary, d – decimal, h – hexadecimal
+
+    3b0 – 3 bits of 0s
+    4d2 - value 2 but using 4 bits instead of the 
+    minimum 2 (binary value 0010 instead of 10)
+    */
+
+    edge_detector.in = ctr.value;
+    dec_ctr.inc = edge_detector.out;
+    seg.values = dec_ctr.digits;
+    
+    io_seg = ~seg.seg; // connect segments to the driver
+    io_sel = ~seg.sel; // connect digit select to the driver
+    
+    io_led = io_dip;   // connect the DIP switches to the LEDs
+
+    /*
+    2D ARRAY:
+    3x{a} = aaa
+    3x{{a}} = {a}{a}{a}
+
+    io_led = 3x{{8h00}};    // turn all 24 LEDs off
+    */
+
+    /*
+    CONDITIONALS:
+    AND: &
+    OR: |
+    XOR: ^
+    XNOR: ~^
+
+    io_led[0][0] = io_dip[0][0] & io_dip[0][1];   
+    //first LED light up when switch 0 and 1 are turned on
+        
+        result = io_dip[1] + io_dip[0]; // add the switch values
+        io_led = {result[23-:8], result[15-:8], result[7-:8]};    
+        // connect result to LEDs
+    */
+
+    /*
+    REDUCTION OPERATORS:
+    io_led[0][0] = io_dip[0][0] & io_dip[0][1] & io_dip[0][2] & io_dip[0][3] & io_dip[0][4] & io_dip[0][5] & io_dip[0][6] & io_dip[0][7];
+    is the same as 
+    io_led[0][0] = &io_dip[0]; 
+    //first io_led turns on when all switch in first group is on
+
+    io_led[0][0] = |io_dip;
+    //first io_led turns on when any switch in all three groups are on
+    */
+
+
+    
+  }    
+}
