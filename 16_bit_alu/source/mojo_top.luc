@@ -1,0 +1,185 @@
+module mojo_top (
+    input clk,              // 50MHz clock
+    input rst_n,            // reset button (active low)
+    output led [8],         // 8 user controllable LEDs
+    input cclk,             // configuration clock, AVR ready when high
+    output spi_miso,        // AVR SPI MISO
+    input spi_ss,           // AVR SPI Slave Select
+    input spi_mosi,         // AVR SPI MOSI
+    input spi_sck,          // AVR SPI Clock
+    output spi_channel [4], // AVR general purpose pins (used by default to select ADC channel)
+    input avr_tx,           // AVR TX (FPGA RX)
+    output avr_rx,          // AVR RX (FPGA TX)
+    input avr_rx_busy,      // AVR RX buffer full
+    output io_led [3][8],   // LEDs on IO Shield
+    output io_seg [8],      // 7-segment LEDs on IO Shield
+    output io_sel [4],      // Digit select on IO Shield
+    input io_button [5],    // 5 buttons on IO Shield
+    input io_dip [3][8]     // DIP switches on IO Shield
+  ) {
+  
+  sig rst;                  // reset signal
+  
+  .clk(clk) {
+    // The reset conditioner is used to synchronize the reset signal to the FPGA
+    // clock. This ensures the entire FPGA comes out of reset at the same time.
+    reset_conditioner reset_cond;
+    .rst(rst){
+      //counter is used to store value of input a and b
+      dff ctr_a[16];
+      dff ctr_b[16];
+      //fsm states to run test
+      fsm state = {START,ST_A, ST_B,ST_ANS,SHOW_A,SHOW_B,OUT,CHECK};
+      //initialize multi seven seg to show numbers
+      multi_seven_seg seg;
+      }
+  }
+  
+  //define intermediate signals
+  sig alufn[6];
+  sig alu[16];
+  //const X =29;
+  
+  //initializes the alu
+  alu alu1;
+  
+  //initialize counter for a,b
+  
+  
+  always {
+    reset_cond.in = ~rst_n; // input raw inverted reset signal
+    rst = reset_cond.out;   // conditioned reset
+    
+    led = 8h00;             // turn LEDs off
+    spi_miso = bz;          // not using SPI
+    spi_channel = bzzzz;    // not using flags
+    avr_rx = bz;            // not using serial port
+    
+    io_led = 3x{{8h00}};    // turn LEDs off
+    io_seg = 8hff;          // turn segments off
+    io_sel = 4hf;           // select no digits
+    
+    //connect dip to intermediate variables
+    alufn = io_dip[0][5:0];
+  
+    //connect the alu inputs to intermediate variables
+    alu1.a = ctr_a.q;
+    alu1.b = ctr_b.q;
+    alu1.alufn = alufn;
+    
+    //connect the alu outputs to intermediate variable
+    alu = alu1.alu_output;
+    
+    //connect led to intermediate variable
+    io_led = {alu[15-:8],alu[7-:8],8h00}; 
+    
+    //connect led to copy input values
+    //io_led[0] = a;
+    //io_led[1] = b;
+    
+    seg.values = {4he, 4he, 4he, 4he}; //to initialize the values for 7segment to be ----
+    
+    //FSM TEST CASES
+    case(state.q){
+      //START STATE
+      state.START:
+
+        //display 'S---' to indicate START STATE
+        seg.values = {4hd, 4he, 4he, 4he};
+        io_seg = ~seg.seg;
+        io_sel = ~seg.sel;
+        //press the left button to store input a
+        //press the right button to store input b
+        //press the central button to output 
+        
+        if(io_button[3]==1){ 
+          state.d = state.ST_A;
+        }else if(io_button[4]==1){ 
+          state.d = state.ST_B;
+        }else if(io_button[1]==1){ 
+          state.d = state.OUT;
+        }
+      
+      //STORE input A
+      state.ST_A:
+        ctr_a.d[15-:8] = io_dip[2];
+        ctr_a.d[7-:8] = io_dip[1];
+        alu1.a = ctr_a.q;
+        
+        //input a light up as led
+        io_led[2] = ctr_a.q[15-:8];                  
+        io_led[1] = ctr_a.q[7-:8];                      
+
+        //display 'A---' to indicate ST_A
+        seg.values = {4ha, 4he, 4he, 4he};
+        io_seg = ~seg.seg;
+        io_sel = ~seg.sel;
+        
+        //press the left button to store input a
+        //press the right button to store input b
+        //press the central button to output 
+        
+        if(io_button[3]==1){ 
+          state.d = state.ST_A;
+        }else if(io_button[4]==1){ 
+          state.d = state.ST_B;
+        }else if(io_button[1]==1){ 
+          state.d = state.OUT;
+        }
+        
+        
+        
+        //STORE input B
+      state.ST_B:
+        ctr_b.d[15-:8] = io_dip[2];
+        ctr_b.d[7-:8] = io_dip[1];
+        
+        //input a light up as led
+        io_led[2] = ctr_b.q[15-:8];                  
+        io_led[1] = ctr_b.q[7-:8];                      
+
+        //display 'B---' to indicate ST_B
+        seg.values = {4hb, 4he, 4he, 4he};
+        io_seg = ~seg.seg;
+        io_sel = ~seg.sel;
+        
+        //press the left button to store input a
+        //press the right button to store input b
+        //press the central button to output 
+        
+        if(io_button[3]==1){ 
+          state.d = state.ST_A;
+        }else if(io_button[4]==1){ 
+          state.d = state.ST_B;
+        }else if(io_button[1]==1){ 
+          state.d = state.OUT;
+        }
+          
+        //SHOW output
+      state.OUT:
+        
+        //output light up as led
+        io_led[2] = alu[15-:8];                  
+        io_led[1] = alu[7-:8];                      
+
+        //display 'C---' to indicate output
+        seg.values = {4hc, 4he, 4he, 4he};
+        io_seg = ~seg.seg;
+        io_sel = ~seg.sel;
+        
+        //press the left button to store input a
+        //press the right button to store input b
+        //press the central button to output 
+        
+        if(io_button[3]==1){ 
+          state.d = state.ST_A;
+        }else if(io_button[4]==1){ 
+          state.d = state.ST_B;
+        }else if(io_button[1]==1){ 
+          state.d = state.OUT;
+        }
+      
+      
+    }
+  }
+}
