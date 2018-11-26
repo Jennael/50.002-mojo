@@ -1,14 +1,15 @@
 module checkall (
     input alufn[1], //alufn of our system, 1 for pvp, 0 for single player
-    //input in[n] - answer by player
-    //input ans[n] - correct answer i) tester ii) randomiser
+    input checka[16],
+    input checkb[16],
     output out
+    //PROBLEM2: should i just have signal from mojo counter or make new counter here
   ) {
 
+    //iteration NOT DONE
+
   always {
-    //TODO find a way to split input into 16 bits to use 16bit alu?
-    
-    //TODO utilise alufn to decide the input ans.
+
     
     out = 0;
   }

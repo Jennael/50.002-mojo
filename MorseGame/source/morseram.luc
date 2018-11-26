@@ -4,14 +4,15 @@ module morseram (
    
     input character[5], //input character
     output characterout[5],
-    input new_ram, //input valid signal
+    input new_ram, 
     input read_ram
       ) {
 
   .clk(clk) {
   
     .rst(rst) {
-       fsm state = {NEW, LISTEN, FIN, READ}; // our state machine: listen receives input
+      fsm state = {NEW, LISTEN, FIN, READ}; // our state machine: listen receives input
+      
     }
     
     dff input_count[$clog2(80)]; //dealing with 80 characters per input string
@@ -22,11 +23,12 @@ module morseram (
   
   }
   
-  
+  //REVIEW - need a second opinion
   always {
     ram.address = input_count.q; // use name_count as the address
     ram.write_data = 8hxx;      // don't care
     ram.write_en = 0;
+    characterout = 5b0;
     
     case (state.q) { // our FSM    
 
@@ -41,6 +43,7 @@ module morseram (
         if (new_ram) { // wait for new ram input signal
           ram.write_data = character;        // write the received letter to RAM
           ram.write_en = 1;                // signal we want to write
+          //PROBLEM4: should this be called in mojotop to signal morseram to start listening?
           input_count.d = input_count.q + 1; // increment the address
  
           // if we run out of space or they pressed enter

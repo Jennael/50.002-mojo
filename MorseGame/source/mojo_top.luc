@@ -31,7 +31,22 @@ module mojo_top (
     // The reset conditioner is used to synchronize the reset signal to the FPGA
     // clock. This ensures the entire FPGA comes out of reset at the same time.
     reset_conditioner reset_cond;
+    .rst(rst){
+      fsm game = {INIT, QUESTION, ANSWER, CHECK, PASS, FAIL}; //fill in states and their actions
+      
+      morseram question;
+      morseram answer;
+    }
+
+
   }
+  checkall checkall;
+  morse morse; //PROBLEM1: why not found?
+  
+  sig col[6]; //requires further manipulation to capture col data
+  sig a[5];
+  sig b[5];
+  sig fill[11];
   
   always {
     reset_cond.in = ~rst_n; // input raw inverted reset signal
@@ -49,7 +64,63 @@ module mojo_top (
     guess_led = 2b11;
     button_col = 6b000000;
     
+    question.new_ram=0;
+    answer.new_ram=0;
+        
+    question.read_ram=0;
+    answer.read_ram=0;
     
+    question.character=0;
+    answer.character=0;
+    
+    checkall.alufn=0;
+    
+    fill=16b0;
+    
+    //REVIEW - need a second opinion + Ainul's blinking part
+    //NOT DONE
+    case (game.q){
+      game.INIT:
+        question.new_ram=0;
+        answer.new_ram=0;
+        
+        question.read_ram=0;
+        answer.read_ram=0;
+
+        
+      game.QUESTION:
+        //connect question signals
+        //end state when receive end signal
+        
+        // draft not sure how exactly it goes
+        morse.keyboard_col = col; //PROBLEM3: requires further manipulation to capture col data?
+        morse.keyboard_row = button_row; 
+        question.new_ram = 1;
+        question.character = morse.character;
+        
+        
+      game.ANSWER:
+        //connect question signals
+        //end state when receive end signal
+        
+        answer.new_ram = 1;
+        answer.character = morse.character;
+        
+      game.CHECK:
+        question.read_ram = 1;
+        a = question.characterout; 
+        b = answer.characterout; 
+        //PROBLEM2: do i put the counter here to read charout or in morseram?
+        checkall.checka=fill+a;
+        checkall.checkb=fill+b;
+        //PROBLEM2: do i put the counter here to check charout or in checkall?
+        if(checkall.out==0){
+          game.d=game.FAIL;
+        } else {
+          game.d=game.PASS;
+        }
+      
+    }  
     
     
     

@@ -3,13 +3,12 @@
   <files>
     <src>alu.luc</src>
     <src>check16.luc</src>
-    <src>morseram.luc</src>
-    <src>boolean16.luc</src>
     <src>shifter16.luc</src>
+    <src>boolean16.luc</src>
+    <src>morseram.luc</src>
     <src>compare16.luc</src>
-    <src>.luc</src>
-    <src top="true">mojo_top.luc</src>
     <src>checkall.luc</src>
+    <src top="true">mojo_top.luc</src>
     <src>morse.luc</src>
     <src>adder16.luc</src>
     <ucf>ports.ucf</ucf>

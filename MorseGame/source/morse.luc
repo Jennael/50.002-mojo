@@ -1,10 +1,18 @@
 module  (
     input keyboard_row[5],  // clock
-    input keyboard col[6],
+    input keyboard_col[6],
     output character[5]
   ) {
 
   always {
+    //PROBLEM3: double check regarding layout of keyboard
+    character=5b0;
+    if (keyboard_col==5b00001 && keyboard_row==6b000001){
+      character=00000; //A
+    } else if (keyboard_col==5b00010 && keyboard_row==6b000001){
+      character=00001; //B
+    }
+    
     //code
     /*
     00000
