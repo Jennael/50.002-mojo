@@ -1,0 +1,75 @@
+module morseram (
+    input clk,  // clock
+    input rst,  // reset
+   
+    input character[5], //input character
+    output characterout[5],
+    input new_ram, //input valid signal
+    input read_ram
+      ) {
+
+  .clk(clk) {
+  
+    .rst(rst) {
+       fsm state = {NEW, LISTEN, FIN, READ}; // our state machine: listen receives input
+    }
+    
+    dff input_count[$clog2(80)]; //dealing with 80 characters per input string
+    
+    dff read_count[$clog2(80)];
+    
+    simple_ram ram (#SIZE(5), #DEPTH($pow(2,input_count.WIDTH))); //dealing with 80 characters 5 bits wide
+  
+  }
+  
+  
+  always {
+    ram.address = input_count.q; // use name_count as the address
+    ram.write_data = 8hxx;      // don't care
+    ram.write_en = 0;
+    
+    case (state.q) { // our FSM    
+
+      //init input counter (80 by 5)    
+      state.NEW:
+        input_count.d = 0;
+        if (new_ram) // wait for any letter
+          state.d = state.LISTEN;      
+      
+      //inputting
+      state.LISTEN:
+        if (new_ram) { // wait for new ram input signal
+          ram.write_data = character;        // write the received letter to RAM
+          ram.write_en = 1;                // signal we want to write
+          input_count.d = input_count.q + 1; // increment the address
+ 
+          // if we run out of space or they pressed enter
+          if (&input_count.q || character == 5b11101) { //END CHARACTER
+            state.d = state.FIN;
+            input_count.d = 0; // reset name_count
+          }
+        }
+    
+      //outputting
+      state.FIN:
+        if(read_ram){
+          state.d = state.READ;
+        }
+        if(new_ram){
+          state.d = state.NEW;
+        }
+        
+      state.READ:
+        if(read_ram){
+        
+          read_count.d = read_count.q + 1;
+          characterout = ram.read_data; 
+          
+          if (&read_count.q || ram.read_data == 5b11101){
+            state.d = state.FIN;
+          }
+        } 
+    
+    
+  }
+}

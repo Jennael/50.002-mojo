@@ -1,0 +1,53 @@
+module greeter (
+    input clk,         // clock
+    input rst,         // reset
+    input new_rx,      // new RX flag
+    input rx_data[8],  // RX data
+    output new_tx,     // new TX flag
+    output tx_data[8], // TX data
+    input tx_busy      // TX is busy flag
+  ) {
+ 
+  const NUM_LETTERS = 14; // 14 characters in '\r\n!dlroW olleH' 
+  // This specifies how big the ROM is.
+ 
+  .clk(clk) {
+    .rst(rst) {
+      fsm state = {IDLE, GREET}; // instantiate  fsm with 2 states: 'idle' 'greet' 
+    }
+    dff count[$clog2(NUM_LETTERS)]; // instantiate a flipflop from 0 to NUM_LETTERS-1
+    // function $clog2() computes the ceiling log base 2 of the value passed to it
+    // min bits to store NUM_LETTERS - 1
+  }
+ 
+  hello_world_rom rom; // instantiate rom with text string
+ 
+  always {
+  
+    // ROM usage
+    rom.address = count.q;  // conuter output count.q goes from 0 to NUM_LETTERS-1
+                            // rom.address goes from 0 to NUM_LETTERS-1
+                            // rom.letter goes from 'H' to '\'
+    tx_data = rom.letter; // avr tramsmitter tx.data is connected to rom.letter
+ 
+    new_tx = 0; // default to 0
+ 
+    case (state.q) {
+      state.IDLE:
+        count.d = 0; // initiate count input to be 0
+        if (new_rx && rx_data == "h") // if detect new_rx high and avr receive 'h' data
+          state.d = state.GREET;
+ 
+      state.GREET:
+        if (!tx_busy) { // if tx_busy is low
+          count.d = count.q + 1;
+          new_tx = 1;
+          if (count.q == NUM_LETTERS - 1) // completed saying 'Hello world!'
+            state.d = state.IDLE; // end and go to idle state
+        }
+    }
+    // new_rx and new_tx
+    // avr.new_rx_data is a single bit wide and acts as a flag. 
+    // When this signal is 1, the value of avr.rx_data is valid and it's the byte we just received.
+  }
+}

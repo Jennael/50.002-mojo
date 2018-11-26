@@ -1,0 +1,15 @@
+module hello_world_rom (
+    input address[4], //4 bits
+    output letter[8] //8 bits - letters are 8 bits wide
+  ) {
+
+  const TEXT = "\r\n!dlroW olleH"; // text is reversed to make 'H' address[0]
+  // Alternatively, use: $reverse("\r\nHello @!\r\n")
+  
+  always {
+    // We want to output the first letter, "H", when address[0] and 
+    // the second letter, "e", when address[1].
+    letter = TEXT[address]; // address indexes 8 bit blocks of TEXT
+
+  }
+}

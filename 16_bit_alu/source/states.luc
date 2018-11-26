@@ -21,12 +21,11 @@ module states (
   sig rst;                  // reset signal
   
   .clk(clk) {
-    // The reset conditioner is used to synchronize the reset signal to the FPGA
-    // clock. This ensures the entire FPGA comes out of reset at the same time.
+    //Clk of module is connected to clk input of 
     reset_conditioner reset_cond;
     .rst(rst){
       //counter is used to cycle through different states. use smaller bits for shorter period in each state
-      dff counter[30]; 
+      dff counter[30]; //flipflip counter with 30 bits
       //fsm states to run test
       fsm state = {START, ADDERTEST1, ADDERTEST2, ADDERTEST3, ADDERTEST4, ADDERTEST5, ADDERTESTERROR, ADDERERROR,
                            BOOLEANTEST1, BOOLEANTEST2, BOOLEANTEST3, BOOLEANTEST4, BOOLEANTESTERROR, BOOLEANERROR, 
@@ -38,7 +37,7 @@ module states (
       }
   }
   
-  //define intermediate signals
+  //define intermediate signals (initialise variables and alu)
   sig a[16];
   sig b[16];
   sig alufn[6];
@@ -64,12 +63,12 @@ module states (
     //connect dip to intermediate variables
     a = 16b1;
     b = 16b1;
-    alufn = io_dip[2][5:0];
+    alufn = io_dip[2][5:0]; //6 switches on last row of dip switches
   
     //connect the alu inputs to intermediate variables
-    alu1.a = a;
-    alu1.b = b;
-    alu1.alufn = alufn;
+    alu1.a = a; //alu1.a refers to a[16] input of alu
+    alu1.b = b; //alu1.b refers to b[16] input of alu
+    alu1.alufn = alufn; ////alu1.alufn refers to alufn[6] input of alu
     
     //connect the alu outputs to intermediate variable
     alu = alu1.alu_output;

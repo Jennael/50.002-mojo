@@ -1,0 +1,14 @@
+module check16 (
+    input in[16], //input by player
+    input ans[16], //question set by tester
+    output out[16] //ouput 1 as correct, 0 as wrong for each bit
+  ) {
+  
+  alu alu1;
+  
+  always {
+    alu1.a = in;
+    alu1.b = ans;
+    alu1.alufn = 6b110011; //CMPEQ operation
+    out = alu1.alu_output;
+}
