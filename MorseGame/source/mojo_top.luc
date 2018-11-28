@@ -34,19 +34,20 @@ module mojo_top (
     .rst(rst){
       fsm game = {INIT, QUESTION, ANSWER, CHECK, PASS, FAIL}; //fill in states and their actions
       
-      morseram question;
-      morseram answer;
+      morse_ram question; //ram of 80 by 5
+      morse_ram answer; //ram of 80 by 5
     }
 
+    dff entry_count[$clog2(80)]; //dealing with 80 characters per input string
 
   }
-  checkall checkall;
-  morse morse; //PROBLEM1: why not found?
+  //morse morse; //PROBLEM1: why not found?
   
   sig col[6]; //requires further manipulation to capture col data
   sig a[5];
   sig b[5];
-  sig fill[11];
+  sig fill[16];
+  
   
   always {
     reset_cond.in = ~rst_n; // input raw inverted reset signal
@@ -70,10 +71,11 @@ module mojo_top (
     question.read_ram=0;
     answer.read_ram=0;
     
-    question.character=0;
-    answer.character=0;
+    question.character=5b0;
+    answer.character=5b0;
     
-    checkall.alufn=0;
+    question.address=entry_count.q;
+    answer.address=entry_count.q;
     
     fill=16b0;
     
@@ -96,13 +98,14 @@ module mojo_top (
         morse.keyboard_col = col; //PROBLEM3: requires further manipulation to capture col data?
         morse.keyboard_row = button_row; 
         question.new_ram = 1;
+        
         question.character = morse.character;
         
         
       game.ANSWER:
         //connect question signals
         //end state when receive end signal
-        
+        answer.ram_full = 0;
         answer.new_ram = 1;
         answer.character = morse.character;
         
@@ -110,9 +113,14 @@ module mojo_top (
         question.read_ram = 1;
         a = question.characterout; 
         b = answer.characterout; 
+        
         //PROBLEM2: do i put the counter here to read charout or in morseram?
-        checkall.checka=fill+a;
-        checkall.checkb=fill+b;
+        checkall.checka = 16b0;
+        checkall.checka[4:0] = question.characterout;
+        
+        checkall.checkb = 16b0;
+        checkall.checkb[4:0] = answer.characterout;
+
         //PROBLEM2: do i put the counter here to check charout or in checkall?
         if(checkall.out==0){
           game.d=game.FAIL;

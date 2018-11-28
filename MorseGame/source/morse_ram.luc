@@ -1,7 +1,8 @@
-module morseram (
+module morse_ram (
     input clk,  // clock
     input rst,  // reset
-   
+    
+    input address,
     input character[5], //input character - connect decoded value here
     output characterout[5], //compare using this output
     input new_ram, //from game fsm 
@@ -16,16 +17,15 @@ module morseram (
       
     }
     
-    dff entry_count[$clog2(80)]; //dealing with 80 characters per input string
     
-    simple_ram ram (#SIZE(5), #DEPTH($pow(2,entry_count.WIDTH))); //dealing with 80 characters 5 bits wide
+    simple_ram ram (#SIZE(5), #DEPTH($pow(2,80))); //dealing with 80 characters 5 bits wide
   
   }
   
   //REVIEW - need a second opinion
   always {
     
-    ram.address = entry_count.q; // use entry_count as the RAM entry address
+    ram.address = address; // use entry_count as the RAM entry address
     ram.write_data = 8hxx;      // don't care
     ram.write_en = 0;
     characterout = 5b0;
@@ -75,3 +75,4 @@ module morseram (
     
   }
 }
+

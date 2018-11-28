@@ -1,0 +1,45 @@
+module check (
+    input rst,
+    input clk,
+    
+    input adata[5], // question.read_data
+    input bdata[5], // answer.read_data
+    
+    output address[$clog2(80)],
+    output out[$clog2(80)]
+    
+  ) {
+  
+  dff entry_count[$clog2(80)](.clk(clk), .rst(rst)); //dealing with 80 characters per input string
+  
+  alu alu1;
+  sig checka[16];
+  sig checkb[16];
+  sig score[$clog2(80)];
+  
+  always {
+    out = 0;
+    score = 0;
+    address = entry_count.q;
+    
+    checka = 16b0;
+    checka[4:0] = adata;
+        
+    checkb = 16b0;
+    checkb[4:0] = bdata;
+    
+    alu1.a = checka;
+    alu1.b = checkb;
+    alu1.alufn = 6b110011; //CMPEQ operation  
+      
+    if (&entry_count.q || adata == 5b11101 || bdata == 5b11101){ //AINUL
+      out = score;
+    } else if (alu1.alu_output!=0){ //answer and question are equal
+      score = score + 1;
+      entry_count.d = entry_count.q + 1;    
+    } else {
+      entry_count.d = entry_count.q + 1;
+    }
+    
+  }
+}

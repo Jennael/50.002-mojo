@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="MorseGame" board="Mojo V3" language="Lucid">
+<project name="MorseGamever2" board="Mojo V3" language="Lucid">
   <files>
-    <src>morse_ram.luc</src>
     <src>alu.luc</src>
-    <src>check16.luc</src>
     <src>morseram.luc</src>
-    <src>boolean16.luc</src>
     <src>shifter16.luc</src>
+    <src>boolean16.luc</src>
     <src>compare16.luc</src>
-    <src>checkall.luc</src>
+    <src>check.luc</src>
     <src top="true">mojo_top.luc</src>
-    <src>morse.luc</src>
     <src>adder16.luc</src>
     <ucf>ports.ucf</ucf>
     <ucf lib="true">mojo.ucf</ucf>

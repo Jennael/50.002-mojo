@@ -1,0 +1,32 @@
+module morseram (
+    input clk,  // clock
+    input rst,  // reset_conditioner
+    
+    input address,
+    
+    input character[5],
+    output characterout[5]
+    
+  ) {
+
+  .clk(clk) {
+  
+    .rst(rst) {
+      
+    }
+        
+    simple_ram ram (#SIZE(5), #DEPTH(80)//dealing with 80 characters 5 bits wide
+  
+  }  
+    
+  always {
+  
+    ram.address = address; // use entry_count as the RAM entry address
+    ram.write_data = character; //don't care
+    ram.write_en = 0;
+    characterout = ram.read_data;
+    
+    
+    
+  }
+}
