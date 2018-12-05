@@ -1,0 +1,50 @@
+/*
+
+1: 7b0000110
+2: 7b1011011
+3: 7b1001111
+4: 7b1100110
+5: 7b1101101
+6: 7b1111101
+7: 7b0000111
+8: 7b1111111
+9: 7b1101111
+0: 7b0111111
+   
+'_' : 7b0101010
+
+
+*/
+
+module displaylevel (
+   
+    
+    input thislevel[5], // 0 -15, decimal format
+    output seven_seg[7]   // individual segments in each seven_seg
+    
+  ) {
+
+  always {
+  
+    case(thislevel){
+      6h0: seven_seg = 7b0111111;
+      6h1: seven_seg = 7b0000110;
+      6h2: seven_seg = 7b1011011;
+      6h3: seven_seg = 7b1001111;
+      6h4: seven_seg = 7b1100110;
+      6h5: seven_seg = 7b1101101;
+      6h6: seven_seg = 7b1111101;
+      6h7: seven_seg = 7b0000111;
+      6h8: seven_seg = 7b1111111;
+      6h9: seven_seg = 7b1101111;
+      6hA: seven_seg = 7b1110111;
+      6hb: seven_seg = 7b1111100;
+      6hC: seven_seg = 7b0111001;
+      6hd: seven_seg = 7b1011110;
+      6hE: seven_seg = 7b1111001;
+      6hF: seven_seg = 7b1110001;
+      default: seven_seg = 7b0;      
+    }
+    
+  }
+}

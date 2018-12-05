@@ -1,0 +1,146 @@
+/*
+
+1: 7b0000110
+2: 7b1011011
+3: 7b1001111
+4: 7b1100110
+5: 7b1101101
+6: 7b1111101
+7: 7b0000111
+8: 7b1111111
+9: 7b1101111
+0: 7b0111111
+   
+'_' : 7b0101010
+
+
+*/
+
+module scoredisplay (
+   
+    
+    input thisscore[8], // 0 -99, decimal format
+    output leftseven_seg[7],   // individual segments in each seven_seg
+    output rightseven_seg[7]   // individual segments in each seven_seg
+    
+  ) {
+
+  always {
+  
+    
+    case(thisscore){
+      0: leftseven_seg = 7b0111111; rightseven_seg = 7b0111111;
+      1: leftseven_seg = 7b0111111; rightseven_seg = 7b0000110;
+      2: leftseven_seg = 7b0111111; rightseven_seg = 7b1011011;
+      3: leftseven_seg = 7b0111111; rightseven_seg = 7b1001111;
+      4: leftseven_seg = 7b0111111; rightseven_seg = 7b1100110;
+      5: leftseven_seg = 7b0111111; rightseven_seg = 7b1101101;
+      6: leftseven_seg = 7b0111111; rightseven_seg = 7b1111101;
+      7: leftseven_seg = 7b0111111; rightseven_seg = 7b0000111;
+      8: leftseven_seg = 7b0111111; rightseven_seg = 7b1111111;
+      9: leftseven_seg = 7b0111111; rightseven_seg = 7b1101111;
+      
+      10: leftseven_seg = 7b0000110; rightseven_seg = 7b0111111;
+      11: leftseven_seg = 7b0000110; rightseven_seg = 7b0000110;
+      12: leftseven_seg = 7b0000110; rightseven_seg = 7b1011011;
+      13: leftseven_seg = 7b0000110; rightseven_seg = 7b1001111;
+      14: leftseven_seg = 7b0000110; rightseven_seg = 7b1100110;
+      15: leftseven_seg = 7b0000110; rightseven_seg = 7b1101101;
+      16: leftseven_seg = 7b0000110; rightseven_seg = 7b1111101;
+      17: leftseven_seg = 7b0000110; rightseven_seg = 7b0000111;
+      18: leftseven_seg = 7b0000110; rightseven_seg = 7b1111111;
+      19: leftseven_seg = 7b0000110; rightseven_seg = 7b1101111;
+      
+      20: leftseven_seg = 7b1011011; rightseven_seg = 7b0111111;
+      21: leftseven_seg = 7b1011011; rightseven_seg = 7b0000110;
+      22: leftseven_seg = 7b1011011; rightseven_seg = 7b1011011;
+      23: leftseven_seg = 7b1011011; rightseven_seg = 7b1001111;
+      24: leftseven_seg = 7b1011011; rightseven_seg = 7b1100110;
+      25: leftseven_seg = 7b1011011; rightseven_seg = 7b1101101;
+      26: leftseven_seg = 7b1011011; rightseven_seg = 7b1111101;
+      27: leftseven_seg = 7b1011011; rightseven_seg = 7b0000111;
+      28: leftseven_seg = 7b1011011; rightseven_seg = 7b1111111;
+      29: leftseven_seg = 7b1011011; rightseven_seg = 7b1101111;
+      
+      30: leftseven_seg = 7b1001111; rightseven_seg = 7b0111111;
+      31: leftseven_seg = 7b1001111; rightseven_seg = 7b0000110;
+      32: leftseven_seg = 7b1001111; rightseven_seg = 7b1011011;
+      33: leftseven_seg = 7b1001111; rightseven_seg = 7b1001111;
+      34: leftseven_seg = 7b1001111; rightseven_seg = 7b1100110;
+      35: leftseven_seg = 7b1001111; rightseven_seg = 7b1101101;
+      36: leftseven_seg = 7b1001111; rightseven_seg = 7b1111101;
+      37: leftseven_seg = 7b1001111; rightseven_seg = 7b0000111;
+      38: leftseven_seg = 7b1001111; rightseven_seg = 7b1111111;
+      39: leftseven_seg = 7b1001111; rightseven_seg = 7b1101111;
+     
+      40: leftseven_seg = 7b1100110; rightseven_seg = 7b0111111;
+      41: leftseven_seg = 7b1100110; rightseven_seg = 7b0000110;
+      42: leftseven_seg = 7b1100110; rightseven_seg = 7b1011011;
+      43: leftseven_seg = 7b1100110; rightseven_seg = 7b1001111;
+      44: leftseven_seg = 7b1100110; rightseven_seg = 7b1100110;
+      45: leftseven_seg = 7b1100110; rightseven_seg = 7b1101101;
+      46: leftseven_seg = 7b1100110; rightseven_seg = 7b1111101;
+      47: leftseven_seg = 7b1100110; rightseven_seg = 7b0000111;
+      48: leftseven_seg = 7b1100110; rightseven_seg = 7b1111111;
+      49: leftseven_seg = 7b1100110; rightseven_seg = 7b1101111;
+      
+      50: leftseven_seg = 7b1101101; rightseven_seg = 7b0111111;
+      51: leftseven_seg = 7b1101101; rightseven_seg = 7b0000110;
+      52: leftseven_seg = 7b1101101; rightseven_seg = 7b1011011;
+      53: leftseven_seg = 7b1101101; rightseven_seg = 7b1001111;
+      54: leftseven_seg = 7b1101101; rightseven_seg = 7b1100110;
+      55: leftseven_seg = 7b1101101; rightseven_seg = 7b1101101;
+      56: leftseven_seg = 7b1101101; rightseven_seg = 7b1111101;
+      57: leftseven_seg = 7b1101101; rightseven_seg = 7b0000111;
+      58: leftseven_seg = 7b1101101; rightseven_seg = 7b1111111;
+      59: leftseven_seg = 7b1101101; rightseven_seg = 7b1101111;
+      
+      60: leftseven_seg = 7b1111101; rightseven_seg = 7b0111111;
+      61: leftseven_seg = 7b1111101; rightseven_seg = 7b0000110;
+      62: leftseven_seg = 7b1111101; rightseven_seg = 7b1011011;
+      63: leftseven_seg = 7b1111101; rightseven_seg = 7b1001111;
+      64: leftseven_seg = 7b1111101; rightseven_seg = 7b1100110;
+      65: leftseven_seg = 7b1111101; rightseven_seg = 7b1101101;
+      66: leftseven_seg = 7b1111101; rightseven_seg = 7b1111101;
+      67: leftseven_seg = 7b1111101; rightseven_seg = 7b0000111;
+      68: leftseven_seg = 7b1111101; rightseven_seg = 7b1111111;
+      69: leftseven_seg = 7b1111101; rightseven_seg = 7b1101111;
+      
+      70: leftseven_seg = 7b0000111; rightseven_seg = 7b0111111;
+      71: leftseven_seg = 7b0000111; rightseven_seg = 7b0000110;
+      72: leftseven_seg = 7b0000111; rightseven_seg = 7b1011011;
+      73: leftseven_seg = 7b0000111; rightseven_seg = 7b1001111;
+      74: leftseven_seg = 7b0000111; rightseven_seg = 7b1100110;
+      75: leftseven_seg = 7b0000111; rightseven_seg = 7b1101101;
+      76: leftseven_seg = 7b0000111; rightseven_seg = 7b1111101;
+      77: leftseven_seg = 7b0000111; rightseven_seg = 7b0000111;
+      78: leftseven_seg = 7b0000111; rightseven_seg = 7b1111111;
+      79: leftseven_seg = 7b0000111; rightseven_seg = 7b1101111;
+      
+      80: leftseven_seg = 7b1111111; rightseven_seg = 7b0111111;
+      81: leftseven_seg = 7b1111111; rightseven_seg = 7b0000110;
+      82: leftseven_seg = 7b1111111; rightseven_seg = 7b1011011;
+      83: leftseven_seg = 7b1111111; rightseven_seg = 7b1001111;
+      84: leftseven_seg = 7b1111111; rightseven_seg = 7b1100110;
+      85: leftseven_seg = 7b1111111; rightseven_seg = 7b1101101;
+      86: leftseven_seg = 7b1111111; rightseven_seg = 7b1111101;
+      87: leftseven_seg = 7b1111111; rightseven_seg = 7b0000111;
+      88: leftseven_seg = 7b1111111; rightseven_seg = 7b1111111;
+      89: leftseven_seg = 7b1111111; rightseven_seg = 7b1101111;
+      
+      90: leftseven_seg = 7b1101111; rightseven_seg = 7b0111111;
+      91: leftseven_seg = 7b1101111; rightseven_seg = 7b0000110;
+      92: leftseven_seg = 7b1101111; rightseven_seg = 7b1011011;
+      93: leftseven_seg = 7b1101111; rightseven_seg = 7b1001111;
+      94: leftseven_seg = 7b1101111; rightseven_seg = 7b1100110;
+      95: leftseven_seg = 7b1101111; rightseven_seg = 7b1101101;
+      96: leftseven_seg = 7b1101111; rightseven_seg = 7b1111101;
+      97: leftseven_seg = 7b1101111; rightseven_seg = 7b0000111;
+      98: leftseven_seg = 7b1101111; rightseven_seg = 7b1111111;
+      99: leftseven_seg = 7b1101111; rightseven_seg = 7b1101111;
+      
+      default: leftseven_seg = 7b0; rightseven_seg = 7b0;
+    }
+    
+  }
+}

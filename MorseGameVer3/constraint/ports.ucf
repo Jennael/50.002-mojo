@@ -1,17 +1,17 @@
-NET "seven_seg<0>" LOC = P124 | IOSTANDARD = LVTTL;
-NET "seven_seg<1>" LOC = P127 | IOSTANDARD = LVTTL;
-NET "seven_seg<2>" LOC = P132 | IOSTANDARD = LVTTL;
-NET "seven_seg<3>" LOC = P134 | IOSTANDARD = LVTTL;
+NET "seven_seg<0>" LOC = P127 | IOSTANDARD = LVTTL;
+NET "seven_seg<1>" LOC = P124 | IOSTANDARD = LVTTL;
+NET "seven_seg<2>" LOC = P142 | IOSTANDARD = LVTTL;
+NET "seven_seg<3>" LOC = P140 | IOSTANDARD = LVTTL;
 NET "seven_seg<4>" LOC = P138 | IOSTANDARD = LVTTL;
-NET "seven_seg<5>" LOC = P140 | IOSTANDARD = LVTTL;
-NET "seven_seg<6>" LOC = P142 | IOSTANDARD = LVTTL;
+NET "seven_seg<5>" LOC = P132 | IOSTANDARD = LVTTL;
+NET "seven_seg<6>" LOC = P134 | IOSTANDARD = LVTTL;
 
-NET "seg_sel<0>" LOC = P123 | IOSTANDARD = LVTTL;
-NET "seg_sel<1>" LOC = P123 | IOSTANDARD = LVTTL;
-NET "seg_sel<2>" LOC = P131 | IOSTANDARD = LVTTL;
-NET "seg_sel<3>" LOC = P133 | IOSTANDARD = LVTTL;
-NET "seg_sel<4>" LOC = P137 | IOSTANDARD = LVTTL;
-NET "seg_sel<5>" LOC = P139 | IOSTANDARD = LVTTL;
+NET "seg_sel<0>" LOC = P139 | IOSTANDARD = LVTTL;
+NET "seg_sel<1>" LOC = P137 | IOSTANDARD = LVTTL;
+NET "seg_sel<2>" LOC = P133 | IOSTANDARD = LVTTL;
+NET "seg_sel<3>" LOC = P131 | IOSTANDARD = LVTTL;
+NET "seg_sel<4>" LOC = P126 | IOSTANDARD = LVTTL;
+NET "seg_sel<5>" LOC = P123 | IOSTANDARD = LVTTL;
 
 NET "button<0>" LOC = P2 | IOSTANDARD = LVTTL;
 NET "button<1>" LOC = P6 | IOSTANDARD = LVTTL;

@@ -2,8 +2,8 @@
 <project name="16_bit_alu" board="Mojo V3" language="Lucid">
   <files>
     <src>alu.luc</src>
-    <src>boolean16.luc</src>
     <src>shifter16.luc</src>
+    <src>boolean16.luc</src>
     <src>seven_seg.luc</src>
     <src>compare16.luc</src>
     <src>multi_seven_seg.luc</src>

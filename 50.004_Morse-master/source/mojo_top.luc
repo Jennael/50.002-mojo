@@ -1,0 +1,319 @@
+module mojo_top (
+    input clk,              // 50MHz clock
+    input rst_n,            // reset button (active low)
+    output led [8],         // 8 user controllable LEDs
+    
+    output seven_seg[7],    // individual segments in each seven_seg
+    output seg_sel[6],      // to select between different seven_seg
+    input button[5],        // button for level control and to start the game
+    output red_led[2],         // to display morse code
+    output enter_led[2],    // to indicate which player to enter
+    output guess_led[2],     // to indicate which player to guess
+    output button_col[6],   // coloums in keypad
+    input button_row[5]   // rows in keypad
+    
+  ) {
+  
+  sig rst;                  // reset signal
+  
+  
+  displaylevel showspeed; // module to convert speed choice to 7-seg
+  displaylevel showlen; // module to convert phrase length to 7-seg
+  
+  scoredisplay showscoreB; // module to convert BLUE score to 7-seg
+  scoredisplay showscoreG; // module to convert GREEN score to 7-seg 
+  
+  
+  .clk(clk) {
+    // The reset conditioner is used to synchronize the reset signal to the FPGA
+    // clock. This ensures the entire FPGA comes out of reset at the same time.
+    reset_conditioner reset_cond;
+    
+    .rst(rst){
+      buttonmapping bm; // module to match button ress to alphabet code
+      displaymorse dm; // module to convert received alphabet to LED blink
+      
+      fsm state = {STATE_IDLE, STATE_ENC, STATE_ENCDISP, STATE_DEC, STATE_COMP, STATE_SCORE};
+    }
+    
+    dff incr[26]; //control duration increment / speed between 0.03125s and 1.0s
+    
+    dff enter_indic; //indicate which player is encoding
+    dff guess_indic; //indicate which player is decoding
+    
+    dff phrase_countE[5]; // number of characters in encoded. also acts as a cycler
+    dff phrase_countD[5]; // number of characters in decoded. also acts as a cycler. same as phrase_countD
+    
+    dff morse_ram_size[5]; // size of ram for both enc and decoder
+    
+    dff scoreB[7]; // to show bleu score up to 99
+    dff scoreG[7]; // to show green score up to 99
+    
+    simple_ram dataE(#SIZE(5), #DEPTH($pow(2, morse_ram_size.WIDTH))); // encoder's RAM. SIZE is ram entry's bit-width (32) and depth is number of entry
+    simple_ram dataD(#SIZE(5), #DEPTH($pow(2, morse_ram_size.WIDTH))); // decoder's RAM. similar to encoder ram
+    
+    dff button_col_cycler[6]; //control cycler for button_col
+    
+    dff seg_choice[6]; //control cycler for 7-seg selector
+    
+    dff speed_disp[3]; //leftmost 7-seg. display 1 - 5 speed
+    dff len_disp[5]; //rightmost 7-seg. display 1 - 9 phrase length in characters
+    
+    
+  }
+  
+  always {
+  
+    dataE.address = phrase_countE.q; // link phrase_countE to select address of encoder ram
+    dataD.address = phrase_countD.q; // link phrase_countD to select address of decoder ram
+    
+    morse_ram_size.d = 1; // initialise morse ram size to 1
+    
+    dataE.write_data = 8hxx; // initialise encoder character as don't care
+    dataE.write_en = 0; // initiliase write signal to low
+    
+    dataD.write_data = 8hxx; // initialise encoder character as don't care
+    dataD.write_en = 0; // initiliase write signal to low
+    
+    reset_cond.in = ~rst_n; // input raw inverted reset signal
+    rst = reset_cond.out;   // conditioned reset
+    
+    led = 8h00;             // turn LEDs off
+    seven_seg = 7b0000000; //turn 7-seg off
+    seg_sel = seg_choice.q; // link seg_choice control to seg_sel
+    red_led = 0; // turn red_led off
+    enter_led = enter_indic.q; // turn encoder's led indicator off
+    guess_led = guess_indic.q; // turn decoder's led indicator off
+    
+    button_col = bm.button_col; // link ton_col output from bm to mojo_top col
+    bm.button_row = button_row; // input mojo_top button row press as button row
+    
+    dm.data = 5hx; //initialise dm data to dont' care
+    dm.incr = incr.q; // link morse display speed to pre-game increment setting
+    red_led = dm.red_led;
+    
+    scoreB.d = 0; // initialise blue score to 0
+    scoreG.d = 0; // initialise green score to 0
+    
+    incr.d = 50000000; // initialise increment to 
+    speed_disp.d = 1; // initialise speed to 1
+    
+    showspeed.thislevel = speed_disp.q; // link speed display output to speed's displaylevel module for processing
+    showlen.thislevel = len_disp.q; // link speed display output to length's displaylevel module for processing
+     
+    showscoreB.thisscore = scoreB.q; // link blue score incrementer to blue score's scoredisplay module
+    showscoreG.thisscore = scoreG.q; // link green score incrementer to green score's scoredisplay module
+    
+    case(state.q){
+      //encoder input
+      state.STATE_IDLE://change game settings OR start game
+        
+        //code to cycle through seven-segment diaplsys
+        if(seg_choice.q==0){
+          seg_choice.d = 1;
+        }
+        else{
+          seg_choice.d = seg_choice.q << 1;
+        }
+        
+        // utton procedures: change speed, change maximum phrase length, start game
+        case(button){
+          
+          00001://increase speed / increase incr / faster
+            if(incr.q < 50000000){ // if not max increment of 1s
+              incr.d = incr.q + 10000000; // increase by 0.2s
+              speed_disp.d = speed_disp.q + 1; // increase speed_disp
+              
+              /* CHANGE: SEVEN-SEG IMPLEMENTAITON */
+              if(seg_choice.q == 6b100000){ // once reached speed display
+                seven_seg  = showspeed.seven_seg; //update seven_seg
+              }
+              
+            }
+            else{ // max incr reached
+              if(seg_choice.q == 6b100000){
+                seven_seg  = 7b1101101; // continue display 5
+                
+              }
+            }
+            
+            
+            
+          00010://decrease speed / decrease incr / slower
+            if(incr.q > 10000000){// if not min increment of 0.2s
+              incr.d = incr.q - 10000000; // decrease by 0.2s
+              speed_disp.d = speed_disp.q - 1; // decrease speed_disp
+              
+              if(seg_choice.q == 6b100000){ // seg_sel reached speed display
+                seven_seg  = showspeed.seven_seg; //update seven_seg
+               } 
+            }
+            else{ // min incr reached
+              if(seg_choice.q == 6b100000){
+                seven_seg  = 7b0000110; // continue display 1
+              }
+            }
+            
+          00100: // increase length button pressed
+            /* CHANGE: SEVEN-SEG IMPLEMENTAITON */
+            if(morse_ram_size.q < 6hF){
+              morse_ram_size.d = morse_ram_size.q + 1; // increase ram size by 1
+              len_disp.d = len_disp.q + 1;
+            }
+            
+            if(seg_choice.q == 6b000001){
+              seven_seg = showlen.seven_seg;
+            }
+            
+          01000: // decrease length button pressed
+            if(morse_ram_size.q > 6h1){
+              morse_ram_size.d = morse_ram_size.q - 1;
+              len_disp.d = len_disp.q - 1;
+            }
+            
+            if(seg_choice.q == 6b000001){
+              seven_seg = showlen.seven_seg;
+            }
+            
+          10000:
+            dm.incr = incr.q;
+            seg_choice.d = 0;
+            state.d = state.STATE_ENC;
+        }
+        
+      
+      state.STATE_ENC: //encoder to input code
+      
+        case(enter_indic.q){
+          2b00: //new game. blue turn
+            enter_indic.d = 2b1;
+        
+          2b01:// blue done. change to green turn
+            enter_indic.d = 2b10;
+          
+          2b10://green done. change to blue turn?
+            enter_indic.d = 2b01;
+            
+          default:// default blue first
+            enter_indic.d = 2b1;
+            
+        }
+        
+        //cycling button_col
+        if(button_col_cycler.q == 0){
+          button_col_cycler.d = 1;
+        }
+        button_col = button_col_cycler.q; // assign cycler value to button_col
+        button_col_cycler.d = button_col_cycler.q << 1; // left-shift 1 bit of button_col_cycler 
+        
+        if(button_row){// if button_row has input
+        
+          dataE.write_data = bm.somechar; // link input with encoder ram
+          dataE.write_en = 1; // send input
+          phrase_countE.d = phrase_countE.q + 1; // move insert pointer
+          
+          if(bm.somechar == 5h1e || phrase_countE.q > morse_ram_size.q){ // if end or run out of space
+          
+            dataE.write_data = 5h1e; // link input with encoder ram
+            dataE.write_en = 1; // send input
+            enter_indic.d = enter_indic.q << 1;
+            state.d = state.STATE_ENCDISP; //move to next state
+          
+          }
+        
+        }
+        
+      state.STATE_ENCDISP: // display code
+      
+        if(dataE.read_data != 5h1e){ // if END not reached
+          dm.data = dataE.read_data;
+          
+          phrase_countE.d = phrase_countE.q + 1;
+        }
+        
+        else{ //if end reached
+          state.d = state.STATE_DEC;
+        }
+      
+      
+      state.STATE_DEC: //decoder input guess
+      
+        case(guess_indic.q){
+          00: //new game. blue turn
+            guess_indic.d = 1;
+        
+          01:// blue done. now green turn
+            guess_indic.d = 10;
+          
+          10://green turn done. maybe blue turn?
+            guess_indic.d = 1;
+            
+          default:
+            guess_indic.d = 1;
+            
+        }
+      
+        // automatically cycle through button_col
+        if(button_col_cycler.q == 0){
+          button_col_cycler.d = 1;
+        }
+        button_col = button_col_cycler.q;
+        button_col_cycler.d = button_col_cycler.q << 1;
+        
+        if(button_row){// if button_row has input
+        
+          dataD.write_data = bm.somechar; // link input with encoder ram
+          dataD.write_en = 1; // send input
+          phrase_countD.d = phrase_countD.q + 1; // move insert pointer
+          
+          if(bm.somechar == 5h1d || &phrase_countE.q){ // if end or run out of space
+            guess_indic.d = enter_indic.q << 1;
+            state.d = state.STATE_COMP; //move to next state
+          
+          }
+        
+        }
+      
+      
+      state.STATE_COMP: // compare encoded guess. MEIMEI's portion
+      
+        phrase_countD.d = dataD.read_data;
+        
+        if(button[4] == 1){ //if start button is pressed
+          state.d = state.STATE_SCORE;
+        }
+      
+      state.STATE_SCORE: //add and display score
+      
+      /* CHANGE: SEVEN-SEG IMPLEMENTAITON */
+       case(guess_indic.q){
+         01: // blue turn
+           if(seg_choice.q == 4){
+             seven_seg = showscoreB.leftseven_seg;
+              }
+           if(seg_choice.q == 3){
+            
+             seven_seg = showscoreB.rightseven_seg;
+            }
+          
+         10: // green turn
+           if(seg_choice.q == 2){
+             seven_seg = showscoreG.leftseven_seg;
+              }
+           if(seg_choice.q == 1){
+            
+             seven_seg = showscoreG.rightseven_seg;
+            }
+          
+         default: state.d = state.STATE_IDLE;  
+          
+         }
+        
+        if(button[4] == 1){ //if start button is pressed
+          state.d = state.STATE_IDLE;
+        }
+      
+    }
+    
+  }
+}  

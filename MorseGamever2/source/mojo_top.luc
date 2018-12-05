@@ -22,12 +22,21 @@ module mojo_top (
     output guess_led[2],     // to indicate which player to guess
     
     output button_col[6],   // coloums in keypad
-    input button_row[5]     // rows in keypad
+    input button_row[5],     // rows in keypad
+
+    output gnd,
+    output pwr
     
     
   ) {
   
   sig rst;                  // reset signal
+
+  displaylevel showspeed; // module to convert speed choice to 7-seg
+  displaylevel showlen; // module to convert phrase length to 7-seg
+  
+  scoredisplay showscoreB; // module to convert BLUE score to 7-seg
+  scoredisplay showscoreG; // module to convert GREEN score to 7-seg   
   
   .clk(clk) {
     // The reset conditioner is used to synchronize the reset signal to the FPGA
@@ -38,18 +47,69 @@ module mojo_top (
     simple_ram answer (#SIZE(5), #DEPTH(80);//dealing with 80 characters 5 bits wide   
     
     .rst(rst){
-      fsm game = {INIT, QUESTION, ANSWER, CHECK, PASS, FAIL};
+      
+      buttonmapping bm; // module to match button ress to alphabet code
+      displaymorse dm; // module to convert received alphabet to LED blink
+      
+      fsm game = {IDLE, INPUT1, DISPLAY, DEC, COMP, SCORE};
+
+      //fsm game = {INIT, QUESTION, ANSWER, CHECK, PASS, FAIL};
       fsm write = {IDLE, WRITE};        
       check check;
     }
     
     dff entry_count[$clog2(80)]; //dealing with 80 characters per input string
+
+
     
+    dff incr[26]; //control duration increment / speed between 0.03125s and 1.0s
+    
+    dff enter_indic; //indicate which player is encoding
+    dff guess_indic; //indicate which player is decoding
+    
+    /* CHANGE: REUSE SAME COUNTER FOR RAM ADDRESS*/
+    dff phrase_countE[5]; // number of characters in encoded. also acts as a cycler
+    dff phrase_countD[5]; // number of characters in decoded. also acts as a cycler. same as phrase_countD
+    
+    dff morse_ram_size[5]; // size of ram for both enc and decoder
+    
+    dff scoreB[7]; // to show bleu score up to 99
+    dff scoreG[7]; // to show green score up to 99
+    
+    /* CHANGE: RAM WIDTH INCREMENTS*/
+    simple_ram dataE(#SIZE(5), #DEPTH($pow(2, morse_ram_size.WIDTH))); // encoder's RAM. SIZE is ram entry's bit-width (32) and depth is number of entry
+    simple_ram dataD(#SIZE(5), #DEPTH($pow(2, morse_ram_size.WIDTH))); // decoder's RAM. similar to encoder ram
+    
+    dff button_col_cycler[6]; //control cycler for button_col
+    
+    dff seg_choice[6]; //control cycler for 7-seg selector
+    
+    dff speed_disp[3]; //leftmost 7-seg. display 1 - 5 speed
+    dff len_disp[5]; //rightmost 7-seg. display 1 - 9 phrase length in characters
+
   }
 
   sig write_ram; //1: signal to write in ram or 0: when finished writing
     
   always {
+    gnd = 0;
+    pwr = 1;
+
+    
+    morse_ram_size.d = 1; // initialise morse ram size to 1
+    
+    /* CHANGE: REUSE SAME COUNTER FOR RAM ADDRESS*/
+    dataE.address = phrase_countE.q; // link phrase_countE to select address of encoder ram
+    dataD.address = phrase_countD.q; // link phrase_countD to select address of decoder ram
+
+    dataE.write_data = 8hxx; // initialise encoder character as don't care
+    dataE.write_en = 0; // initiliase write signal to low
+    
+    dataD.write_data = 8hxx; // initialise encoder character as don't care
+    dataD.write_en = 0; // initiliase write signal to low
+
+
+
     reset_cond.in = ~rst_n; // input raw inverted reset signal
     rst = reset_cond.out;   // conditioned reset
     
@@ -58,13 +118,14 @@ module mojo_top (
     spi_channel = bzzzz;    // not using flags
     avr_rx = bz;            // not using serial port
     
-    
-    seven_seg = 7b0000000;
-    seg_sel = 4b1111;
-    red_led = 0;
-    enter_led = 2b11;
-    guess_led = 2b11;
-    button_col = 6b000000;
+    led = 8h00;             // turn LEDs off
+    seven_seg = 7b0000000; //turn 7-seg off
+    seg_sel = seg_choice.q; // link seg_choice control to seg_sel
+    red_led = 0; // turn red_led off
+    enter_led = enter_indic.q; // turn encoder's led indicator off
+    guess_led = guess_indic.q; // turn decoder's led indicator off
+
+
     
     question.address = 7b0; // use entry_count as the RAM entry address
     question.write_data = 8hxx;      // don't care
@@ -78,12 +139,37 @@ module mojo_top (
     check.bdata = 0;
       
     write_ram = 0;
+
+
+
+    button_col = bm.button_col; // link ton_col output from bm to mojo_top col
+    bm.button_row = button_row; // input mojo_top button row press as button row
+    
+    dm.data = 5hx; //initialise dm data to dont' care
+    dm.incr = incr.q; // link morse display speed to pre-game increment setting
+    red_led = dm.red_led;
+    
+    scoreB.d = 0; // initialise blue score to 0
+    scoreG.d = 0; // initialise green score to 0
+    
+    incr.d = 50000000; // initialise increment to 
+    speed_disp.d = 1; // initialise speed to 1
+    
+    showspeed.thislevel = speed_disp.q; // link speed display output to speed's displaylevel module for processing
+    showlen.thislevel = len_disp.q; // link speed display output to length's displaylevel module for processing
+     
+    showscoreB.thisscore = scoreB.q; // link blue score incrementer to blue score's scoredisplay module
+    showscoreG.thisscore = scoreG.q; // link green score incrementer to green score's scoredisplay module
+
+
+
+
+
+    /* CHANGE: SEVEN-SEG IMPLEMENTAITON */
           
     case (game.q){
-      game.INIT:
+      game.IDLE:
 
-
-        
       game.QUESTION:
         case (write.q) {
                         

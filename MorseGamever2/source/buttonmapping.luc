@@ -1,0 +1,83 @@
+module buttonmapping (
+    input clk,  // clock
+    input rst,  // reset
+    output button_col[6],   // coloums in keypad
+    input button_row[5],   // rows in keypadl
+    output somechar[5]
+  ) {
+  
+  dff button_col_cycler[6](#INIT(0), .clk(clk), .rst(rst)); 
+  
+  always {
+  
+    if(button_col_cycler.q == 0){
+      button_col_cycler.d = 1;
+    }
+    button_col = button_col_cycler.q;
+    button_col_cycler.d = button_col_cycler.q << 1;
+    
+    case(button_col_cycler.q){
+      000001:
+        case(button_row){
+        00001: somechar = 5h0; //A
+        00010: somechar = 5h6; //G
+        00100: somechar = 5hC; // M
+        01000: somechar = 5h12; // S
+        10000: somechar = 5h18; // Y          
+          default: somechar = 5h1E; // END
+        }
+      
+      000010:
+        case(button_row){
+        00001: somechar = 5h1; // B
+        00010: somechar = 5h7; // H
+        00100: somechar = 5hD; // N
+        01000: somechar = 5h13; // T
+        10000: somechar = 5h19; // Z
+          default: somechar = 5h1E; // END
+        }
+        
+      000100:
+        case(button_row){
+        00001: somechar = 5h2; // C
+        00010: somechar = 5h8; // I
+        00100: somechar = 5hE; // O
+        01000: somechar = 5h14; // U
+        10000: somechar = 5h1A; // _
+          default: somechar = 5h1E; // END
+        }
+      
+      001000:
+        case(button_row){
+        00001: somechar = 5h3; // D
+        00010: somechar = 5h9; // J
+        00100: somechar = 5h10; // P
+        01000: somechar = 5h16; // V
+            default: somechar = 5h1E; // END
+        }
+        
+      010000:
+        case(button_row){
+        00001: somechar = 5h4; // E
+        00010: somechar = 5hA; // K
+        00100: somechar = 5h11; // Q
+        01000: somechar = 5h17; // W
+            default: somechar = 5h1E; // END
+        }
+        
+      100000:
+        case(button_row){
+        00001: somechar = 5h5; // F
+        00010: somechar = 5hB; // L
+        00100: somechar = 5h12; // R
+        01000: somechar = 5h18; // X
+        10000: somechar = 5h1E; // END
+          default: somechar = 5h1E; // END
+        }
+        
+      default: somechar = 5h1E; // END
+        
+    
+    }
+  }
+}

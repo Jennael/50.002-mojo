@@ -1,0 +1,191 @@
+module buttonmapping (
+    input clk,  // clock
+    input rst,  // reset
+    output button_col[6],   // coloums in keypad
+    input button_row[5],  // rows in keypadl
+    output some[5],
+    input addressin[5],
+    output addressout[5]
+    
+  ) {
+  
+  .clk(clk) ,.rst(rst){
+    dff button_col_cycler[6];
+    dff counter[24];
+    dff somechar[5];
+    dff new[6];
+    //dff address[5];
+    ram ram;  
+  }
+    
+  always {
+    
+    ram.address = addressin;
+    ram.character = 5bxxxxx;
+    addressout = addressin;
+    ram.en = 0;
+    some = ram.characterout;
+    button_col = button_col_cycler.q;
+    
+    if(button_col_cycler.q == 0){
+      button_col_cycler.d = 1;
+    }
+    counter.d = counter.q + 1;
+    if(counter.q[14] == 1){
+      button_col_cycler.d = button_col_cycler.q << 1;
+      counter.d = 0;
+    }
+    
+    case(button_col_cycler.q){
+      6b000001:
+        case(button_row){
+          5b00001: 
+            somechar.d = 5h0; //A
+            new.d[0] = 1;
+          5b00010: 
+            somechar.d = 5h6; //G
+            new.d[0] = 1;
+          5b00100: 
+            somechar.d = 5hC; // M
+            new.d[0] = 1;
+          5b01000: 
+            somechar.d = 5h12; // S
+            new.d[0] = 1;
+          5b10000: 
+            somechar.d = 5h18; // Y
+            new.d[0] = 1;
+          default:
+            if(new.q[0]==1){
+              ram.character = somechar.q;
+              ram.en = 1;
+              addressout = addressin + 1;
+              new.d[0] = 0;
+            }
+        }
+      
+      6b000010:
+        case(button_row){
+          5b00001: 
+            somechar.d = 5h1; // B
+            new.d[1] = 1;
+          5b00010: 
+            somechar.d = 5h7; // H
+            new.d[1] = 1;
+          5b00100: 
+            somechar.d = 5hD; // N
+            new.d[1] = 1;
+          5b01000: 
+            somechar.d = 5h13; // T
+            new.d[1] = 1;
+          5b10000: 
+            somechar.d = 5h19; // Z
+            new.d[1] = 1;
+          default: 
+            if(new.q[1]==1){
+              ram.character = somechar.q;
+              ram.en = 1;
+              addressout = addressin + 1;
+              new.d[1] = 0;
+            }
+        }
+        
+      6b000100:
+        case(button_row){
+          5b00001: 
+            somechar.d = 5h2; // C
+            new.d[2] = 1;
+          5b00010: 
+            somechar.d = 5h8; // I
+            new.d[2] = 1;
+          5b00100: 
+            somechar.d = 5hE; // O
+            new.d[2] = 1;
+          5b01000: 
+            somechar.d = 5h14; // U
+            new.d[2] = 1;
+          5b10000: 
+            somechar.d = 5h1A; // _
+            new.d[2] = 1;
+          default: 
+            if(new.q[2]==1){
+              ram.character = somechar.q;
+              ram.en = 1;
+              addressout = addressin + 1;
+              new.d[2] = 0;
+            }
+        }
+      
+      6b001000:
+        case(button_row){
+          5b00001: 
+            somechar.d = 5h3; // D
+            new.d[3] = 1;
+          5b00010: 
+            somechar.d = 5h9; // J
+            new.d[3] = 1;
+          5b00100: 
+            somechar.d = 5h10; // P
+            new.d[3] = 1;
+          5b01000: 
+            somechar.d = 5h16; // V
+            new.d[3] = 1;
+          default: 
+            if(new.q[3]==1){
+              ram.character = somechar.q;
+              ram.en = 1;
+              addressout = addressin + 1;
+              new.d[3] = 0;
+            }
+        }
+        
+      6b010000:
+        case(button_row){
+          5b00001: 
+            somechar.d = 5h4; // E
+            new.d[4] = 1;
+          5b00010: 
+            somechar.d = 5hA; // K
+            new.d[4] = 1;
+          5b00100: 
+            somechar.d = 5h11; // Q
+            new.d[4] = 1;
+          5b01000: 
+            somechar.d = 5h17; // W
+            new.d[4] = 1;
+          default: 
+            if(new.q[4]==1){
+              ram.character = somechar.q;
+              ram.en = 1;
+              addressout = addressin + 1;
+              new.d[4] = 0;
+            }
+        }
+        
+      6b100000:
+        case(button_row){
+          5b00001: 
+            somechar.d = 5h5; // F
+            new.d[5] = 0;
+          5b00010: 
+            somechar.d = 5hB; // L
+            new.d[5] = 0;
+          5b00100: 
+            somechar.d = 5h12; // R
+            new.d[5] = 0;
+          5b01000: 
+            somechar.d = 5h18; // X
+            new.d[5] = 0;
+          5b10000: 
+            somechar.d = 5h1E; // END
+            new.d[5] = 0;
+          default: 
+            if(new.q[5]==1){
+              ram.character = somechar.q;
+              ram.en = 1;
+              addressout = addressin + 1;
+              new.d[5] = 0;
+            }
+        }
+    }
+  }
+}
