@@ -1,0 +1,412 @@
+Release 14.7 - xst P.20131013 (nt)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+--> 
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.36 secs
+ 
+--> Reading design: mojo_top_0.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Parsing
+  3) HDL Elaboration
+  4) HDL Synthesis
+       4.1) HDL Synthesis Report
+  5) Advanced HDL Synthesis
+       5.1) Advanced HDL Synthesis Report
+  6) Low Level Synthesis
+  7) Partition Report
+  8) Design Summary
+       8.1) Primitive and Black Box Usage
+       8.2) Device utilization summary
+       8.3) Partition Resource Summary
+       8.4) Timing Report
+            8.4.1) Clock Information
+            8.4.2) Asynchronous Control Signals Information
+            8.4.3) Timing Summary
+            8.4.4) Timing Details
+            8.4.5) Cross Clock Domains Report
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "mojo_top_0.prj"
+
+---- Target Parameters
+Target Device                      : xc6slx9tqg144-2
+Output File Name                   : "mojo_top_0.ngc"
+
+---- Source Options
+Top Module Name                    : mojo_top_0
+
+---- General Options
+Optimization Goal                  : speed
+Optimization Effort                : 1
+Netlist Hierarchy                  : rebuilt
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Parsing                                  *
+=========================================================================
+Analyzing Verilog file "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/buttonmapping_6.v" into library work
+Parsing module <buttonmapping_6>.
+Analyzing Verilog file "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/simple_ram_2.v" into library work
+Parsing module <simple_ram_2>.
+Analyzing Verilog file "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/settings_5.v" into library work
+Parsing module <settings_5>.
+Analyzing Verilog file "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/reset_conditioner_1.v" into library work
+Parsing module <reset_conditioner_1>.
+Analyzing Verilog file "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/input_capture_3.v" into library work
+Parsing module <input_capture_3>.
+Analyzing Verilog file "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" into library work
+Parsing module <displaymorse_4>.
+Analyzing Verilog file "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" into library work
+Parsing module <mojo_top_0>.
+
+=========================================================================
+*                            HDL Elaboration                            *
+=========================================================================
+
+Elaborating module <mojo_top_0>.
+
+Elaborating module <reset_conditioner_1>.
+
+Elaborating module <simple_ram_2(SIZE=3'b101,DEPTH=6'b100000)>.
+
+Elaborating module <input_capture_3>.
+
+Elaborating module <buttonmapping_6>.
+WARNING:HDLCompiler:1127 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 66: Assignment to M_detect_somechar ignored, since the identifier is never used
+
+Elaborating module <displaymorse_4>.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 65: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 101: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 137: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 167: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 185: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 221: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 251: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 287: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 311: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 347: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 377: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 413: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 437: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 461: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 491: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 527: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 563: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 593: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 623: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 641: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 671: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 707: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 737: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 773: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 809: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 845: Result of 26-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:1127 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 79: Assignment to M_dm_red_led ignored, since the identifier is never used
+
+Elaborating module <settings_5>.
+WARNING:HDLCompiler:1127 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 91: Assignment to M_settings_speed_disp ignored, since the identifier is never used
+WARNING:HDLCompiler:1127 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 92: Assignment to M_settings_length_disp ignored, since the identifier is never used
+WARNING:HDLCompiler:1127 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 93: Assignment to M_settings_start ignored, since the identifier is never used
+WARNING:Xst:2972 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" line 45. All outputs of instance <sos> of block <simple_ram_2> are unconnected in block <mojo_top_0>. Underlying logic will be removed.
+WARNING:Xst:2972 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" line 73. All outputs of instance <dm> of block <displaymorse_4> are unconnected in block <mojo_top_0>. Underlying logic will be removed.
+WARNING:Xst:2972 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" line 87. All outputs of instance <settings> of block <settings_5> are unconnected in block <mojo_top_0>. Underlying logic will be removed.
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Synthesizing Unit <mojo_top_0>.
+    Related source file is "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v".
+WARNING:Xst:647 - Input <cclk> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <spi_ss> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <spi_mosi> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <spi_sck> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <avr_tx> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <avr_rx_busy> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+INFO:Xst:3210 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" line 61: Output port <somechar> of the instance <detect> is unconnected or connected to loadless signal.
+INFO:Xst:3210 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" line 73: Output port <red_led> of the instance <dm> is unconnected or connected to loadless signal.
+INFO:Xst:3210 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" line 87: Output port <speed_disp> of the instance <settings> is unconnected or connected to loadless signal.
+INFO:Xst:3210 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" line 87: Output port <length_disp> of the instance <settings> is unconnected or connected to loadless signal.
+INFO:Xst:3210 - "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" line 87: Output port <start> of the instance <settings> is unconnected or connected to loadless signal.
+    Found 1-bit tristate buffer for signal <spi_miso> created at line 99
+    Found 1-bit tristate buffer for signal <spi_channel<3>> created at line 99
+    Found 1-bit tristate buffer for signal <spi_channel<2>> created at line 99
+    Found 1-bit tristate buffer for signal <spi_channel<1>> created at line 99
+    Found 1-bit tristate buffer for signal <spi_channel<0>> created at line 99
+    Found 1-bit tristate buffer for signal <avr_rx> created at line 99
+    Summary:
+	inferred   6 Tristate(s).
+Unit <mojo_top_0> synthesized.
+
+Synthesizing Unit <reset_conditioner_1>.
+    Related source file is "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/reset_conditioner_1.v".
+    Found 4-bit register for signal <M_stage_q>.
+    Summary:
+	inferred   4 D-type flip-flop(s).
+Unit <reset_conditioner_1> synthesized.
+
+Synthesizing Unit <input_capture_3>.
+    Related source file is "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/input_capture_3.v".
+    Found 1-bit register for signal <M_button_col_cycler_q>.
+    Summary:
+	inferred   1 D-type flip-flop(s).
+Unit <input_capture_3> synthesized.
+
+Synthesizing Unit <buttonmapping_6>.
+    Related source file is "D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/buttonmapping_6.v".
+    Summary:
+	no macro.
+Unit <buttonmapping_6> synthesized.
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# Registers                                            : 2
+ 1-bit register                                        : 1
+ 4-bit register                                        : 1
+# Tristates                                            : 6
+ 1-bit tristate buffer                                 : 6
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# Registers                                            : 5
+ Flip-Flops                                            : 5
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+
+Optimizing unit <mojo_top_0> ...
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 0) on block mojo_top_0, actual ratio is 0.
+
+Final Macro Processing ...
+
+Processing Unit <mojo_top_0> :
+INFO:Xst:741 - HDL ADVISOR - A 4-bit shift register was found for signal <reset_cond/M_stage_q_3> and currently occupies 4 logic cells (2 slices). Removing the set/reset logic would take advantage of SRL32 (and derived) primitives and reduce this to 1 logic cells (1 slices). Evaluate if the set/reset can be removed for this simple shift register. The majority of simple pipeline structures do not need to be set/reset operationally.
+Unit <mojo_top_0> processed.
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 5
+ Flip-Flops                                            : 5
+
+=========================================================================
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Design Summary                             *
+=========================================================================
+
+Top Level Output File Name         : mojo_top_0.ngc
+
+Primitive and Black Box Usage:
+------------------------------
+# BELS                             : 5
+#      GND                         : 2
+#      INV                         : 1
+#      LUT6                        : 1
+#      VCC                         : 1
+# FlipFlops/Latches                : 5
+#      FD                          : 1
+#      FDS                         : 4
+# Clock Buffers                    : 1
+#      BUFGP                       : 1
+# IO Buffers                       : 33
+#      IBUF                        : 6
+#      OBUF                        : 21
+#      OBUFT                       : 6
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 6slx9tqg144-2 
+
+
+Slice Logic Utilization: 
+ Number of Slice Registers:               5  out of  11440     0%  
+ Number of Slice LUTs:                    2  out of   5720     0%  
+    Number used as Logic:                 2  out of   5720     0%  
+
+Slice Logic Distribution: 
+ Number of LUT Flip Flop pairs used:      7
+   Number with an unused Flip Flop:       2  out of      7    28%  
+   Number with an unused LUT:             5  out of      7    71%  
+   Number of fully used LUT-FF pairs:     0  out of      7     0%  
+   Number of unique control sets:         2
+
+IO Utilization: 
+ Number of IOs:                          45
+ Number of bonded IOBs:                  34  out of    102    33%  
+
+Specific Feature Utilization:
+ Number of BUFG/BUFGCTRLs:                1  out of     16     6%  
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+Timing Report
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+clk                                | BUFGP                  | 5     |
+-----------------------------------+------------------------+-------+
+
+Asynchronous Control Signals Information:
+----------------------------------------
+No asynchronous control signals found in this design
+
+Timing Summary:
+---------------
+Speed Grade: -2
+
+   Minimum period: 1.535ns (Maximum Frequency: 651.466MHz)
+   Minimum input arrival time before clock: 3.526ns
+   Maximum output required time after clock: 4.118ns
+   Maximum combinational path delay: No path found
+
+Timing Details:
+---------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'clk'
+  Clock period: 1.535ns (frequency: 651.466MHz)
+  Total number of paths / destination ports: 4 / 4
+-------------------------------------------------------------------------
+Delay:               1.535ns (Levels of Logic = 2)
+  Source:            reset_cond/M_stage_q_3 (FF)
+  Destination:       detect/M_button_col_cycler_q (FF)
+  Source Clock:      clk rising
+  Destination Clock: clk rising
+
+  Data Path: reset_cond/M_stage_q_3 to detect/M_button_col_cycler_q
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDS:C->Q              1   0.525   0.682  M_stage_q_3 (M_stage_q_3)
+     end scope: 'reset_cond:out'
+     begin scope: 'detect:rst'
+     LUT6:I5->O            1   0.254   0.000  M_button_col_cycler_q_rstpot (M_button_col_cycler_q_rstpot)
+     FD:D                      0.074          M_button_col_cycler_q
+    ----------------------------------------
+    Total                      1.535ns (0.853ns logic, 0.682ns route)
+                                       (55.6% logic, 44.4% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'clk'
+  Total number of paths / destination ports: 9 / 5
+-------------------------------------------------------------------------
+Offset:              3.526ns (Levels of Logic = 3)
+  Source:            rst_n (PAD)
+  Destination:       reset_cond/M_stage_q_3 (FF)
+  Destination Clock: clk rising
+
+  Data Path: rst_n to reset_cond/M_stage_q_3
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             1   1.328   0.681  rst_n_IBUF (rst_n_IBUF)
+     INV:I->O              4   0.255   0.803  M_reset_cond_in1_INV_0 (M_reset_cond_in)
+     begin scope: 'reset_cond:in'
+     FDS:S                     0.459          M_stage_q_0
+    ----------------------------------------
+    Total                      3.526ns (2.042ns logic, 1.484ns route)
+                                       (57.9% logic, 42.1% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'clk'
+  Total number of paths / destination ports: 1 / 1
+-------------------------------------------------------------------------
+Offset:              4.118ns (Levels of Logic = 2)
+  Source:            detect/M_button_col_cycler_q (FF)
+  Destination:       button_col<0> (PAD)
+  Source Clock:      clk rising
+
+  Data Path: detect/M_button_col_cycler_q to button_col<0>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FD:C->Q               1   0.525   0.681  M_button_col_cycler_q (M_button_col_cycler_q)
+     end scope: 'detect:button_col<0>'
+     OBUF:I->O                 2.912          button_col_0_OBUF (button_col<0>)
+    ----------------------------------------
+    Total                      4.118ns (3.437ns logic, 0.681ns route)
+                                       (83.5% logic, 16.5% route)
+
+=========================================================================
+
+Cross Clock Domains Report:
+--------------------------
+
+Clock to Setup on destination clock clk
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+clk            |    1.535|         |         |         |
+---------------+---------+---------+---------+---------+
+
+=========================================================================
+
+
+Total REAL time to Xst completion: 5.00 secs
+Total CPU time to Xst completion: 5.33 secs
+ 
+--> 
+
+Total memory usage is 264936 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :   40 (   0 filtered)
+Number of infos    :    6 (   0 filtered)
+

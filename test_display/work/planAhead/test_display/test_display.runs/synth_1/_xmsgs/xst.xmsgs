@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IMPORTANT: This is an internal file that has been generated
+     by the Xilinx ISE software.  Any direct editing or
+     changes made to this file may result in unpredictable
+     behavior or data corruption.  It is strongly advised that
+     users do not edit the contents of this file. -->
+<messages>
+<msg type="warning" file="HDLCompiler" num="1127" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 66: Assignment to <arg fmt="%s" index="1">M_detect_somechar</arg> ignored, since the identifier is never used
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 65: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 101: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 137: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 167: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 185: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 221: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 251: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 287: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 311: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 347: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 377: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 413: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 437: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 461: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 491: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 527: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 563: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 593: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 623: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 641: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 671: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 707: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 737: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 773: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 809: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="413" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/displaymorse_4.v" Line 845: Result of <arg fmt="%d" index="1">26</arg>-bit expression is truncated to fit in <arg fmt="%d" index="2">5</arg>-bit target.
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="1127" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 79: Assignment to <arg fmt="%s" index="1">M_dm_red_led</arg> ignored, since the identifier is never used
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="1127" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 91: Assignment to <arg fmt="%s" index="1">M_settings_speed_disp</arg> ignored, since the identifier is never used
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="1127" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 92: Assignment to <arg fmt="%s" index="1">M_settings_length_disp</arg> ignored, since the identifier is never used
+</msg>
+
+<msg type="warning" file="HDLCompiler" num="1127" delta="new" >"D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 93: Assignment to <arg fmt="%s" index="1">M_settings_start</arg> ignored, since the identifier is never used
+</msg>
+
+<msg type="warning" file="Xst" num="2972" delta="new" >&quot;<arg fmt="%s" index="1">D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v</arg>&quot; line <arg fmt="%d" index="2">45</arg>. All outputs of instance &lt;<arg fmt="%s" index="3">sos</arg>&gt; of block &lt;<arg fmt="%s" index="4">simple_ram_2</arg>&gt; are unconnected in block &lt;<arg fmt="%s" index="5">mojo_top_0</arg>&gt;. Underlying logic will be removed.
+</msg>
+
+<msg type="warning" file="Xst" num="2972" delta="new" >&quot;<arg fmt="%s" index="1">D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v</arg>&quot; line <arg fmt="%d" index="2">73</arg>. All outputs of instance &lt;<arg fmt="%s" index="3">dm</arg>&gt; of block &lt;<arg fmt="%s" index="4">displaymorse_4</arg>&gt; are unconnected in block &lt;<arg fmt="%s" index="5">mojo_top_0</arg>&gt;. Underlying logic will be removed.
+</msg>
+
+<msg type="warning" file="Xst" num="2972" delta="new" >&quot;<arg fmt="%s" index="1">D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v</arg>&quot; line <arg fmt="%d" index="2">87</arg>. All outputs of instance &lt;<arg fmt="%s" index="3">settings</arg>&gt; of block &lt;<arg fmt="%s" index="4">settings_5</arg>&gt; are unconnected in block &lt;<arg fmt="%s" index="5">mojo_top_0</arg>&gt;. Underlying logic will be removed.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="new" >Input &lt;<arg fmt="%s" index="1">cclk</arg>&gt; is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="new" >Input &lt;<arg fmt="%s" index="1">spi_ss</arg>&gt; is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="new" >Input &lt;<arg fmt="%s" index="1">spi_mosi</arg>&gt; is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="new" >Input &lt;<arg fmt="%s" index="1">spi_sck</arg>&gt; is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="new" >Input &lt;<arg fmt="%s" index="1">avr_tx</arg>&gt; is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+</msg>
+
+<msg type="warning" file="Xst" num="647" delta="new" >Input &lt;<arg fmt="%s" index="1">avr_rx_busy</arg>&gt; is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+</msg>
+
+<msg type="info" file="Xst" num="3210" delta="new" >&quot;<arg fmt="%s" index="1">D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v</arg>&quot; line <arg fmt="%s" index="2">61</arg>: Output port &lt;<arg fmt="%s" index="3">somechar</arg>&gt; of the instance &lt;<arg fmt="%s" index="4">detect</arg>&gt; is unconnected or connected to loadless signal.
+</msg>
+
+<msg type="info" file="Xst" num="3210" delta="new" >&quot;<arg fmt="%s" index="1">D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v</arg>&quot; line <arg fmt="%s" index="2">73</arg>: Output port &lt;<arg fmt="%s" index="3">red_led</arg>&gt; of the instance &lt;<arg fmt="%s" index="4">dm</arg>&gt; is unconnected or connected to loadless signal.
+</msg>
+
+<msg type="info" file="Xst" num="3210" delta="new" >&quot;<arg fmt="%s" index="1">D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v</arg>&quot; line <arg fmt="%s" index="2">87</arg>: Output port &lt;<arg fmt="%s" index="3">speed_disp</arg>&gt; of the instance &lt;<arg fmt="%s" index="4">settings</arg>&gt; is unconnected or connected to loadless signal.
+</msg>
+
+<msg type="info" file="Xst" num="3210" delta="new" >&quot;<arg fmt="%s" index="1">D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v</arg>&quot; line <arg fmt="%s" index="2">87</arg>: Output port &lt;<arg fmt="%s" index="3">length_disp</arg>&gt; of the instance &lt;<arg fmt="%s" index="4">settings</arg>&gt; is unconnected or connected to loadless signal.
+</msg>
+
+<msg type="info" file="Xst" num="3210" delta="new" >&quot;<arg fmt="%s" index="1">D:/Root/Documents/mojo/test_display/work/planAhead/test_display/test_display.srcs/sources_1/imports/verilog/mojo_top_0.v</arg>&quot; line <arg fmt="%s" index="2">87</arg>: Output port &lt;<arg fmt="%s" index="3">start</arg>&gt; of the instance &lt;<arg fmt="%s" index="4">settings</arg>&gt; is unconnected or connected to loadless signal.
+</msg>
+
+<msg type="info" file="Xst" num="741" delta="new" >HDL ADVISOR - A <arg fmt="%d" index="1">4</arg>-bit shift register was found for signal &lt;<arg fmt="%s" index="2">reset_cond/M_stage_q_3</arg>&gt; and currently occupies <arg fmt="%d" index="3">4</arg> logic cells (<arg fmt="%d" index="4">2</arg> slices). Removing the set/reset logic would take advantage of SRL<arg fmt="%d" index="5">32</arg> (and derived) primitives and reduce this to 1 logic cells (1 slices). Evaluate if the set/reset can be removed for this simple shift register. The majority of simple pipeline structures do not need to be set/reset operationally.
+</msg>
+
+</messages>
+

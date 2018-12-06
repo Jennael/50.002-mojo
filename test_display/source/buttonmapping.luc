@@ -1,0 +1,48 @@
+module buttonmapping (
+    input button_col[6],   // coloums in keypad
+    input button_row[5],   // rows in keypadl
+    output char[5]
+  ) {
+
+  sig coordinate[11];
+
+  always {
+
+   coordinate[10:6] = button_row;
+   coordinate[5:0] = button_col;
+      case (coordinate) {
+        11b00001000001: char = 5h0; //A
+        11b00001000010: char = 5h1; //B
+        11b00001000100: char = 5h2; //C
+        11b00001001000: char = 5h3; //D
+        11b00001010000: char = 5h4; //E
+        11b00001100000: char = 5h5; //F
+        11b00010000001: char = 5h6; //G
+        11b00010000010: char = 5h7; //H
+        11b00010000100: char = 5h8; //I
+        11b00010001000: char = 5h9; //J
+        11b00010010000: char = 5ha; //K
+        11b00010100000: char = 5hb; //L
+        11b00100000001: char = 5hc; //M
+        11b00100000010: char = 5hd; //N
+        11b00100000100: char = 5he; //O
+        11b00100001000: char = 5hf; //P
+        11b00100010000: char = 5h10; //Q
+        11b00100100000: char = 5h11; //R
+        11b01000000001: char = 5h12; //S
+        11b01000000010: char = 5h13; //T
+        11b01000000100: char = 5h14; //U
+        11b01000001000: char = 5h15; //V
+        11b01000010000: char = 5h16; //W
+        11b01000100000: char = 5h17; //X
+        11b10000000001: char = 5h18; //Y
+        11b10000000010: char = 5h19; //Z
+        11b10000000100: char = 5h1A; //space
+        11b10000001000: char = 5h1B; //unassigned
+        11b10000010000: char = 5h1C; //unassigned
+        11b10000100000: char = 5h1D; //END
+        
+      default: char = 5h1F; //invalid char
+    }
+  }
+}

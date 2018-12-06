@@ -1,0 +1,411 @@
+module displaymorse (
+    input data[5],
+    input play[1],
+    input clk,
+    input rst,
+    input incr[26], //control display speed
+    output red_led, //used to display led of morse
+    output ra[5] //output address
+  ) {
+
+  .clk(clk), .rst(rst) {
+    dff tmr[32]; 
+    dff read[5];    //output the next address to get next data
+    fsm state={IDLE,PLAY};
+  }
+
+
+  always {
+    ra = read.q;
+    red_led = 0;
+    case(state.q){
+      
+      
+      
+      state.IDLE:
+        red_led = 0;
+        read.d = 0;
+        if(play ==1){
+          state.d = state.PLAY;
+        }
+        
+        
+        
+        
+        
+        
+      state.PLAY :
+        tmr.d = tmr.q+incr;
+        if(play == 0) {
+              state.d = state.IDLE;
+              }
+        case(data){
+          5h0: // A
+    
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h1:red_led=0;
+              4h2:red_led=1;
+              4h5:red_led=0;
+              4hA:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+    
+          5h1: // B
+    
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h3:red_led=0;
+              4h4:red_led=1;
+              4h5:red_led=0;
+              4h6:red_led=1;
+              4h7:red_led=0;
+              4h8:red_led=1;
+              4h9:red_led=0;
+              4hC:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h2: // C
+    
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h3:red_led=0;
+              4h4:red_led=1;
+              4h5:red_led=0;
+              4h6:red_led=1;
+              4h9:red_led=0;
+              4hA:red_led=1;
+              4hB:red_led=0;
+              4hE:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h3: // D
+    
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h3:red_led=0;
+              4h4:red_led=1;
+              4h5:red_led=0;
+              4h6:red_led=1;
+              4h7:red_led=0;
+              4hA:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h4: // E
+    
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h1:red_led=0;
+              4h4:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h5: // F
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h1:red_led=0;
+              4h2:red_led=1;
+              4h3:red_led=0;
+              4h4:red_led=1;
+              4h7:red_led=0;
+              4h8:red_led=1;
+              4h9:red_led=0;
+              4hC:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h6: // G
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h3:red_led=0;
+              4h4:red_led=1;
+              4h7:red_led=0;
+              4h8:red_led=1;
+              4h9:red_led=0;
+              4hC:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h7: // H
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h1:red_led=0;
+              4h2:red_led=1;
+              4h3:red_led=0;
+              4h4:red_led=1;
+              4h5:red_led=0;
+              4h6:red_led=1;
+              4h7:red_led=0;
+              4hA:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+    
+          5h8: // I
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h1:red_led=0;
+              4h2:red_led=1;
+              4h3:red_led=0;
+              4h6:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h9: // J
+            case(tmr.q[30:26]){
+              5h0:red_led=1;
+              5h1:red_led=0;
+              5h2:red_led=1;
+              5h5:red_led=0;
+              5h6:red_led=1;
+              5h9:red_led=0;
+              5hA:red_led=1;
+              5hD:red_led=0;
+              5h11:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5hA: // K
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h3:red_led=0;
+              4h4:red_led=1;
+              4h5:red_led=0;
+              4h6:red_led=1;
+              4h9:red_led=0;
+              4hC:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5hB: // L
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h1:red_led=0;
+              4h2:red_led=1;
+              4h5:red_led=0;
+              4h6:red_led=1;
+              4h7:red_led=0;
+              4h8:red_led=1;
+              4h9:red_led=0;
+              4hC:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5hC: // M
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h3:red_led=0;
+              4h4:red_led=1;
+              4h7:red_led=0;
+              4hA:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5hD: // N
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h3:red_led=0;
+              4h4:red_led=1;
+              4h5:red_led=0;
+              4h8:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5hE: // O
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h3:red_led=0;
+              4h4:red_led=1;
+              4h7:red_led=0;
+              4h8:red_led=1;
+              4hB:red_led=0;
+              4hE:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5hF: // P
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h1:red_led=0;
+              4h2:red_led=1;
+              4h5:red_led=0;
+              4h6:red_led=1;
+              4h9:red_led=0;
+              4hA:red_led=1;
+              4hB:red_led=0;
+              4hE:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h10: // Q
+            case(tmr.q[30:26]){
+              5h0:red_led=1;
+              5h3:red_led=0;
+              5h4:red_led=1;
+              5h7:red_led=0;
+              5h8:red_led=1;
+              5h9:red_led=0;
+              5hA:red_led=1;
+              5hD:red_led=0;
+              5h11:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h11: // R
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h1:red_led=0;
+              4h2:red_led=1;
+              4h5:red_led=0;
+              4h6:red_led=1;
+              4h7:red_led=0;
+              4hA:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h12: // S
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h1:red_led=0;
+              4h2:red_led=1;
+              4h3:red_led=0;
+              4h4:red_led=1;
+              4h5:red_led=0;
+              4h8:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h13: // T
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h3:red_led=0;
+              4h6:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h14: // U
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h1:red_led=0;
+              4h2:red_led=1;
+              4h3:red_led=0;
+              4h4:red_led=1;
+              4h7:red_led=0;
+              4hA:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h15: // V
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h1:red_led=0;
+              4h2:red_led=1;
+              4h3:red_led=0;
+              4h4:red_led=1;
+              4h5:red_led=0;
+              4h6:red_led=1;
+              4h9:red_led=0;
+              4hC:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h16: // W
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h1:red_led=0;
+              4h2:red_led=1;
+              4h5:red_led=0;
+              4h6:red_led=1;
+              4h9:red_led=0;
+              4hC:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h17: // X
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h3:red_led=0;
+              4h4:red_led=1;
+              4h5:red_led=0;
+              4h6:red_led=1;
+              4h7:red_led=0;
+              4h8:red_led=1;
+              4hB:red_led=0;
+              4hE:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h18: // Y
+            case(tmr.q[30:26]){
+              5h0:red_led=1;
+              5h3:red_led=0;
+              5h4:red_led=1;
+              5h5:red_led=0;
+              5h6:red_led=1;
+              5h9:red_led=0;
+              5hA:red_led=1;
+              5hD:red_led=0;
+              5h11:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h19: // Z
+            case(tmr.q[29:26]){
+              4h0:red_led=1;
+              4h3:red_led=0;
+              4h4:red_led=1;
+              4h7:red_led=0;
+              4h8:red_led=1;
+              4h9:red_led=0;
+              4hA:red_led=1;
+              4hB:red_led=0;
+              4hE:read.d = read.q+incr;
+                tmr.d = 0;
+              default:red_led=0;
+            }
+    
+          5h1A: // WORDSEP
+            case(tmr.q[29:26]){
+              4h0:red_led=0;
+              4h4:tmr.d = tmr.q+incr;
+              default:red_led=0;
+            }
+      
+      default: tmr.d = 0;
+    }
+    }
+
+      
+    
+   
+  }
+}

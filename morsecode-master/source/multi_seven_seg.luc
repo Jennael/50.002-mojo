@@ -1,0 +1,28 @@
+module multi_seven_seg #(
+    DIGITS = 6 : DIGITS > 0,
+    DIV = 16 : DIV >= 0
+  )(
+    input clk,  // clock
+    input rst,  // reset
+    input values [DIGITS][4], // data for all led segments
+    output seg [7], // array of 7b led segments
+    output sel [DIGITS] // array of 6 7-seg leds
+  ) {
+  
+  const DIGIT_BITS = $clog2(DIGITS);
+  
+  .clk(clk), .rst(rst) {
+    counter ctr (#DIV(DIV), #SIZE(DIGIT_BITS), #TOP(DIGITS-1));
+  }
+  
+  seven_seg seg_dec;
+  decoder digit_dec (#WIDTH(DIGIT_BITS));
+
+  always {
+    seg_dec.char = values[ctr.value];
+    seg = seg_dec.segs;
+    
+    digit_dec.in = ctr.value;
+    sel = digit_dec.out;
+  }
+}

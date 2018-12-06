@@ -1,0 +1,47 @@
+module multiseg (
+    input clk,  // clock
+    input rst,  // reset
+    
+    input gscore[$clog2(99)],
+    input bscore[$clog2(99)],
+    
+    input speed_disp[$clog2(9)],
+    input length_disp[$clog2(9)],
+    
+    output sel[6],
+    output seg[7]    
+
+  ) {
+
+    .clk(clk) {
+  
+      .rst(rst) {
+      multi_seven_seg multisevenseg; // implementation of multi-segment displays
+      }
+  
+  }
+  
+  always {
+
+    multisevenseg.values = {4b0, 4b0, 4b0, 4b0, 4b0, 4b0}; // speed=values[0], length=values[5]
+
+    multisevenseg.values[0] = speed_disp;
+    multisevenseg.values[5] = length_disp;
+    
+    multisevenseg.values[1] = gscore;
+    multisevenseg.values[2] = gscore;
+    multisevenseg.values[3] = bscore;
+    multisevenseg.values[4] = bscore;
+
+    sel = multisevenseg.sel;
+    seg = multisevenseg.seg;    
+    
+    
+    
+    
+    
+    
+    
+    
+  }
+}

@@ -1,0 +1,34 @@
+module input_capture (
+    input clk,  // clock
+    input rst,  // reset
+    output button_col[6],   // coloums in keypad
+    input button_row[5],   // rows in keypadl
+    output somechar[5]
+  ) {
+ 
+   .clk(clk),.rst(rst){
+      dff button_col_cycler;
+  }
+  buttonmapping bm;
+  
+  
+  always {
+    somechar = bm.char;
+
+    //applying mapping 
+    bm.button_col = button_col_cycler.q;
+    bm.button_row = button_row;
+    
+    //shift cycle
+    if(button_col_cycler.q == 0){
+      button_col_cycler.d = 1;   //return to first col if shift out of range
+    }
+    button_col = button_col_cycler.q;
+    
+    if(button_row ==0){                              //shift only if no button pressed
+      button_col_cycler.d = button_col_cycler.q << 1; //if not, will be caught in the triggered col
+      }
+
+
+  }
+}

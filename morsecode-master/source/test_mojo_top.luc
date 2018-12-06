@@ -1,0 +1,124 @@
+module test_mojo_top (
+    input clk,              // 50MHz clock
+    input rst_n,            // reset button (active low)
+    output led [8],         // 8 user controllable LEDs
+    input cclk,             // configuration clock, AVR ready when high
+    output spi_miso,        // AVR SPI MISO
+    input spi_ss,           // AVR SPI Slave Select
+    input spi_mosi,         // AVR SPI MOSI
+    input spi_sck,          // AVR SPI Clock
+    output spi_channel [4], // AVR general purpose pins (used by default to select ADC channel)
+    input avr_tx,           // AVR TX (FPGA RX)
+    output avr_rx,          // AVR RX (FPGA TX)
+    input avr_rx_busy,       // AVR RX buffer full
+
+    /* SELF-MADE IO COMPONENTS*/
+
+    input button[5],        // button for level control and to start the game
+
+    output red_led,         // to display morse code
+    output enter_led[2],    // to indicate which player to enter
+    output guess_led[2],     // to indicate which player to guess
+
+    output button_col[6],   // coloums in keypad
+    input button_row[5],     // rows in keypad
+
+    output gnd,
+    output pwr
+
+  ) {
+
+  sig rst;                  // reset signal
+
+  .clk(clk) {
+    // The reset conditioner is used to synchronize the reset signal to the FPGA
+    // clock. This ensures the entire FPGA comes out of reset at the same time.
+    reset_conditioner reset_cond;
+
+    // RAMs
+    simple_ram question (#SIZE(5), #DEPTH(32));//dealing with 80 characters 5 bits wide; //ram of 80 by 5
+
+    dff entry_count[$clog2(32)]; //dealing with 80 characters per input string
+    dff occupied [1]; //signal if ram.address is occupied
+    .rst(rst){
+
+      fsm game = {IDLE, INPUT1,READ};
+      input_capture detect; //detect input from io and passes them through buttonmapping to get data[5]
+    }
+
+
+
+
+  }
+
+  always {
+      ////////////////////
+      // INITIALIZATIONS//
+      ////////////////////
+  
+      reset_cond.in = ~rst_n; // input raw inverted reset signal
+      rst = reset_cond.out;   // conditioned reset
+  
+      ////////////// turn LEDs off
+      led = 8h00;
+      red_led = 0;
+      enter_led = 2b11;      //RGB led off is 1
+      guess_led = 2b11;      //RGB led off is 1
+  
+      ////////////// Unused
+      spi_miso = bz;          // not using SPI
+      spi_channel = bzzzz;    // not using flags
+      avr_rx = bz;            // not using serial port
+  
+      ////////////// Others
+      gnd = 0;
+      pwr = 1;
+      //////////////component
+      //ram
+      question.address = entry_count.q; // use entry_count as the RAM entry address
+      question.write_data = 8hxx;      // don't care
+      question.write_en = 0;
+      //input_cature
+      button_col = detect.button_col;
+      detect.button_row = button_row;
+    
+      case(game.q){
+      game.IDLE:
+        if(button[0] ==1){
+          question.write_en = 1;
+          entry_count.d = 0;
+          occupied.d = 0;
+          enter_led[0] = 0;                 //indicate write mode
+          game.d = game.INPUT1;
+          }
+      game.INPUT1:
+          if(detect.somechar!=5h1F && occupied.q == 0){
+          question.write_data = detect.somechar;
+          occupied.d = 1;
+          }
+          else if(detect.somechar == 5h1F && occupied.q ==1){
+          entry_count.d = entry_count.q+1;
+          occupied.d = 0;   
+          }
+          if(entry_count.q == 2){         //check if the write address pointer is moving
+          guess_led[1] = 0;
+          }
+          if(button[1] ==1){
+          question.write_en = 0;
+          entry_count.d = 0;
+          enter_led[0] = 1;               //indicate read-only
+          game.d = game.READ;
+          }
+       game.READ:
+          if(question.read_data == 5h01){
+          red_led = 1;                    // check data in address 0
+          }
+          else{red_led = 0;}
+          if(button[0] ==1){
+          game.d = game.IDLE;
+          }
+      }
+      
+  }
+    
+}
