@@ -1,0 +1,146 @@
+module check (
+    input rst,
+    input clk,
+    
+    input adata[5], // question.read_data
+    input bdata[5], // answer.read_data
+    
+    input calc[1],
+    
+    output address[$clog2(32)],
+    output enter_led[2],
+    output guess_led[2],
+    output count[4],
+    output tens[4],
+    output ones[4]
+    
+  ) {
+  
+  
+  .clk(clk){
+  
+    .rst(rst){
+    dff val[4];
+    dff ovf[4];
+    dff aval[16];
+    dff bval[16];
+    dff alufn[6];
+    dff timer[28];
+    dff entry_count[$clog2(32)](.clk(clk), .rst(rst)); //dealing with 80 characters per input string
+    }
+  fsm checking = {IDLE, CHECK, SCORE};    
+    
+  }
+  
+  alu alu1;
+//  sig checka[16];
+//  sig checkb[16];
+  
+  always {
+  
+    enter_led = 2b11;
+    guess_led = 2b11;
+       
+    address = entry_count.q;
+    //count = timer.q[27:24];
+    count = alu1.alu_output[3:0];
+    
+    aval.d = c{11b0, adata};
+    bval.d = c{11b0, bdata};
+    alufn.d = 6b110011;
+    
+    
+    //checka = 16b0;
+    //checka[4:0] = adata;
+        
+    //checkb = 16b0;
+    //checkb[4:0] = bdata;
+    
+    tens = ovf.q;
+    ones = val.q;
+    
+    //alu cmpeq: checka == checkb;
+    alu1.a = aval.q;
+    alu1.b = bval.q;
+    alu1.alufn = alufn.q; //CMPEQ = 6b110011, SUM = 6b000000  
+      
+    case (checking.q){
+      checking.IDLE: //initialise score = 0,0
+      
+        ovf.d = 0;
+        val.d = 0;
+        
+        enter_led[0] =0; 
+        entry_count.d = 0; //initialise address = 0
+        if(calc == 1){//if calc is HIGH, proceed to check state
+          checking.d = checking.CHECK;
+        }
+        
+      checking.CHECK:
+        timer.d=timer.q+1; //timer increment
+        //enter_led[0] =0;
+
+        if (calc == 0){ //if calc is LOW, proceed to idle state
+          checking.d = checking.IDLE;
+        }
+       
+        aval.d = c{11b0, adata}; //extension
+        bval.d = c{11b0, bdata}; //extension
+        alufn.d = 6b110011;      //alufn
+        
+        if(timer.q[25] == 1){ 
+         if (alu1.alu_output==1){ //answer and question are equal, ALU_OUTPUT = 1
+              timer.d = 0; //reset timer
+              checking.d = checking.SCORE; //score state
+          }
+          else{ 
+            guess_led[1] = 0;
+            entry_count.d = entry_count.q + 1;
+            timer.d = 0;
+          }
+        }
+        
+      checking.SCORE:
+        guess_led[0] = 0;
+        timer.d=timer.q+1; //starts from 0
+        if (calc == 0){ //calc == 0 if entry_count = 6
+          checking.d = checking.IDLE; 
+        }
+        if (val.q == 9){
+              val.d = 0;
+        
+              //alu sum: ovf.d = ovf.q + 1
+              aval.d = ovf.q;
+              bval.d = 1;
+              alufn.d = 6b000000;
+          if(timer.q[25] == 1){        
+              ovf.d = alu1.alu_output[3:0];
+              entry_count.d = entry_count.q + 1;
+              timer.d = 0;
+              checking.d = checking.CHECK;
+          }
+        }
+        else {
+    
+              //alu sum: val.d = val.q + 1
+              aval.d = val.q;
+              bval.d = 1;
+              alufn.d = 6b000000;
+              if(timer.q[25] == 1){ 
+                val.d = alu1.alu_output[3:0]; 
+                entry_count.d = entry_count.q + 1;
+                timer.d = 0;
+                checking.d = checking.CHECK;
+              }
+            }
+
+        }  
+           
+    }
+      
+  }  
+    
+
+
+
+

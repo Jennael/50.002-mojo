@@ -1,0 +1,112 @@
+//! **************************************************************************
+// Written by: Map P.20131013 on Thu Dec 06 20:47:38 2018
+//! **************************************************************************
+
+SCHEMATIC START;
+CONFIG VCCAUX = "3.3";
+COMP "seg_sel[0]" LOCATE = SITE "P139" LEVEL 1;
+COMP "seg_sel[1]" LOCATE = SITE "P137" LEVEL 1;
+COMP "seg_sel[2]" LOCATE = SITE "P133" LEVEL 1;
+COMP "seg_sel[3]" LOCATE = SITE "P131" LEVEL 1;
+COMP "seg_sel[4]" LOCATE = SITE "P126" LEVEL 1;
+COMP "seg_sel[5]" LOCATE = SITE "P123" LEVEL 1;
+COMP "clk" LOCATE = SITE "P56" LEVEL 1;
+COMP "gnd" LOCATE = SITE "P50" LEVEL 1;
+COMP "pwr" LOCATE = SITE "P40" LEVEL 1;
+COMP "cclk" LOCATE = SITE "P70" LEVEL 1;
+COMP "enter_led[0]" LOCATE = SITE "P1" LEVEL 1;
+COMP "enter_led[1]" LOCATE = SITE "P5" LEVEL 1;
+COMP "seven_seg[0]" LOCATE = SITE "P127" LEVEL 1;
+COMP "seven_seg[1]" LOCATE = SITE "P124" LEVEL 1;
+COMP "seven_seg[2]" LOCATE = SITE "P142" LEVEL 1;
+COMP "seven_seg[3]" LOCATE = SITE "P140" LEVEL 1;
+COMP "seven_seg[4]" LOCATE = SITE "P138" LEVEL 1;
+COMP "seven_seg[5]" LOCATE = SITE "P132" LEVEL 1;
+COMP "seven_seg[6]" LOCATE = SITE "P134" LEVEL 1;
+COMP "rst_n" LOCATE = SITE "P38" LEVEL 1;
+COMP "button_col[0]" LOCATE = SITE "P14" LEVEL 1;
+COMP "button_col[1]" LOCATE = SITE "P16" LEVEL 1;
+COMP "button_col[2]" LOCATE = SITE "P21" LEVEL 1;
+COMP "button_col[3]" LOCATE = SITE "P23" LEVEL 1;
+COMP "button_col[4]" LOCATE = SITE "P26" LEVEL 1;
+COMP "button_col[5]" LOCATE = SITE "P29" LEVEL 1;
+COMP "red_led" LOCATE = SITE "P34" LEVEL 1;
+COMP "button_row[0]" LOCATE = SITE "P104" LEVEL 1;
+COMP "button_row[1]" LOCATE = SITE "P101" LEVEL 1;
+COMP "button_row[2]" LOCATE = SITE "P99" LEVEL 1;
+COMP "button_row[3]" LOCATE = SITE "P97" LEVEL 1;
+COMP "button_row[4]" LOCATE = SITE "P94" LEVEL 1;
+COMP "spi_sck" LOCATE = SITE "P43" LEVEL 1;
+COMP "button[0]" LOCATE = SITE "P2" LEVEL 1;
+COMP "button[1]" LOCATE = SITE "P6" LEVEL 1;
+COMP "button[2]" LOCATE = SITE "P8" LEVEL 1;
+COMP "button[3]" LOCATE = SITE "P10" LEVEL 1;
+COMP "button[4]" LOCATE = SITE "P12" LEVEL 1;
+COMP "avr_rx_busy" LOCATE = SITE "P39" LEVEL 1;
+COMP "avr_tx" LOCATE = SITE "P55" LEVEL 1;
+COMP "spi_ss" LOCATE = SITE "P48" LEVEL 1;
+COMP "spi_mosi" LOCATE = SITE "P44" LEVEL 1;
+COMP "guess_led[0]" LOCATE = SITE "P7" LEVEL 1;
+COMP "guess_led[1]" LOCATE = SITE "P9" LEVEL 1;
+TIMEGRP clk = BEL "M_occupied_q_0" BEL "M_entry_count_q_0" BEL
+        "M_entry_count_q_1" BEL "M_entry_count_q_2" BEL "M_entry_count_q_3"
+        BEL "M_entry_count_q_4" BEL "M_delay_q_0" BEL "M_delay_q_1" BEL
+        "M_delay_q_2" BEL "M_delay_q_3" BEL "M_delay_q_4" BEL "M_delay_q_5"
+        BEL "M_delay_q_6" BEL "M_delay_q_7" BEL "M_delay_q_8" BEL
+        "M_delay_q_9" BEL "M_delay_q_10" BEL "M_delay_q_11" BEL "M_delay_q_12"
+        BEL "M_delay_q_13" BEL "M_delay_q_14" BEL "M_delay_q_15" BEL
+        "M_delay_q_16" BEL "M_delay_q_17" BEL "M_delay_q_18" BEL
+        "M_game_q_FSM_FFd2" BEL "M_game_q_FSM_FFd1" BEL
+        "detect/M_counter_q_20" BEL "detect/M_counter_q_19" BEL
+        "detect/M_counter_q_18" BEL "detect/M_counter_q_17" BEL
+        "detect/M_counter_q_16" BEL "detect/M_counter_q_15" BEL
+        "detect/M_counter_q_14" BEL "detect/M_counter_q_13" BEL
+        "detect/M_counter_q_12" BEL "detect/M_counter_q_11" BEL
+        "detect/M_counter_q_10" BEL "detect/M_counter_q_9" BEL
+        "detect/M_counter_q_8" BEL "detect/M_counter_q_7" BEL
+        "detect/M_counter_q_6" BEL "detect/M_counter_q_5" BEL
+        "detect/M_counter_q_4" BEL "detect/M_counter_q_3" BEL
+        "detect/M_counter_q_2" BEL "detect/M_counter_q_1" BEL
+        "detect/M_counter_q_0" BEL "detect/M_button_col_cycler_q_4" BEL
+        "detect/M_button_col_cycler_q_3" BEL "detect/M_button_col_cycler_q_2"
+        BEL "detect/M_button_col_cycler_q_1" BEL
+        "detect/M_button_col_cycler_q_0" BEL "clk_BUFGP/BUFG" BEL
+        "question/read_data_4" BEL "question/read_data_3" BEL
+        "question/read_data_2" BEL "question/read_data_1" BEL
+        "question/read_data_0" BEL "question/Mram_ram3" BEL
+        "question/Mram_ram2" BEL "question/Mram_ram1" BEL "question/Mram_ram5"
+        BEL "question/Mram_ram4" BEL "dm/M_tmr_q_30_1" BEL "dm/M_tmr_q_26_1"
+        BEL "dm/M_tmr_q_28_1" BEL "dm/M_tmr_q_10" BEL "dm/M_tmr_q_11" BEL
+        "dm/M_tmr_q_12" BEL "dm/M_tmr_q_13" BEL "dm/M_tmr_q_29_1" BEL
+        "dm/M_tmr_q_14" BEL "dm/M_tmr_q_20" BEL "dm/M_tmr_q_0" BEL
+        "dm/M_tmr_q_15" BEL "dm/M_tmr_q_21" BEL "dm/M_tmr_q_1" BEL
+        "dm/M_tmr_q_16" BEL "dm/M_tmr_q_2" BEL "dm/M_tmr_q_17" BEL
+        "dm/M_tmr_q_22" BEL "dm/M_tmr_q_23" BEL "dm/M_tmr_q_3" BEL
+        "dm/M_tmr_q_18" BEL "dm/M_tmr_q_24" BEL "dm/M_tmr_q_4" BEL
+        "dm/M_tmr_q_19" BEL "dm/M_tmr_q_30" BEL "dm/M_tmr_q_5" BEL
+        "dm/M_tmr_q_25" BEL "dm/M_tmr_q_26" BEL "dm/M_tmr_q_6" BEL
+        "dm/M_tmr_q_7" BEL "dm/M_tmr_q_27" BEL "dm/M_tmr_q_28" BEL
+        "dm/M_tmr_q_8" BEL "dm/M_tmr_q_29" BEL "dm/M_tmr_q_9" BEL
+        "dm/M_signal_q" BEL "dm/M_read_q_0" BEL "dm/M_read_q_1" BEL
+        "dm/M_state_q" BEL "answer/read_data_3" BEL "answer/read_data_2" BEL
+        "answer/read_data_1" BEL "answer/read_data_0" BEL "answer/Mram_ram3"
+        BEL "answer/Mram_ram1" BEL "answer/Mram_ram2" BEL "answer/Mram_ram4"
+        BEL "reset_cond/M_stage_q_3" BEL "reset_cond/M_stage_q_2" BEL
+        "reset_cond/M_stage_q_1" BEL "reset_cond/M_stage_q_0" BEL
+        "settings/M_speed_q_3" BEL "settings/M_speed_q_2" BEL
+        "settings/M_speed_q_1" BEL "settings/M_speed_q_0" BEL
+        "settings/M_incr_q_8" BEL "settings/M_incr_q_7" BEL
+        "settings/M_incr_q_6" BEL "settings/M_incr_q_5" BEL
+        "settings/M_incr_q_4" BEL "settings/M_incr_q_3" BEL
+        "settings/M_incr_q_2" BEL "settings/M_incr_q_1" BEL
+        "settings/M_incr_q_0" BEL "seg/ctr/M_ctr_q_0" BEL "seg/ctr/M_ctr_q_1"
+        BEL "seg/ctr/M_ctr_q_2" BEL "seg/ctr/M_ctr_q_3" BEL
+        "seg/ctr/M_ctr_q_4" BEL "seg/ctr/M_ctr_q_5" BEL "seg/ctr/M_ctr_q_6"
+        BEL "seg/ctr/M_ctr_q_7" BEL "seg/ctr/M_ctr_q_8" BEL
+        "seg/ctr/M_ctr_q_9" BEL "seg/ctr/M_ctr_q_10" BEL "seg/ctr/M_ctr_q_11"
+        BEL "seg/ctr/M_ctr_q_12" BEL "seg/ctr/M_ctr_q_13" BEL
+        "seg/ctr/M_ctr_q_14" BEL "seg/ctr/M_ctr_q_15" BEL "seg/ctr/M_ctr_q_16"
+        BEL "seg/ctr/M_ctr_q_17" BEL "seg/ctr/M_ctr_q_18";
+TS_clk = PERIOD TIMEGRP "clk" 50 MHz HIGH 50%;
+SCHEMATIC END;
+

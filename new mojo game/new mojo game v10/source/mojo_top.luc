@@ -1,0 +1,321 @@
+module mojo_top (
+    input clk,              // 50MHz clock
+    input rst_n,            // reset button (active low)
+    output led [8],         // 8 user controllable LEDs
+    input cclk,             // configuration clock, AVR ready when high
+    output spi_miso,        // AVR SPI MISO
+    input spi_ss,           // AVR SPI Slave Select
+    input spi_mosi,         // AVR SPI MOSI
+    input spi_sck,          // AVR SPI Clock
+    output spi_channel [4], // AVR general purpose pins (used by default to select ADC channel)
+    input avr_tx,           // AVR TX (FPGA RX)
+    output avr_rx,          // AVR RX (FPGA TX)
+    input avr_rx_busy,       // AVR RX buffer full
+
+    /* SELF-MADE IO COMPONENTS*/
+
+    input button[5],        // button for level control and to start the game
+
+    output red_led,         // to display morse code
+    output enter_led[2],    // to indicate which player to enter
+    output guess_led[2],     // to indicate which player to guess
+
+    output button_col[6],   // coloums in keypad
+    input button_row[5],     // rows in keypad
+    output seven_seg[7],
+    output seg_sel[6],
+
+    output gnd,
+    output pwr
+
+  ) {
+
+  sig rst;                  // reset signal
+
+  .clk(clk) {
+    // The reset conditioner is used to synchronize the reset signal to the FPGA
+    // clock. This ensures the entire FPGA comes out of reset at the same time.
+    reset_conditioner reset_cond;
+
+    // RAMs
+    simple_ram question (#SIZE(5), #DEPTH(32));//dealing with 32 characters 5 bits wide; //ram of 32 by 5
+    simple_ram answer (#SIZE(5), #DEPTH(32));//dealing with 32 characters 5 bits wide; //ram of 32 by 5
+
+
+    dff entry_count[5]; //dealing with 80 characters per input string
+    dff occupied [1];
+    dff delay[25];
+    dff score1[8];
+    dff score2[8];
+    dff user;
+    dff speed[4](#INIT(1));
+    dff length[4](#INIT(1));
+    dff count[4];
+    
+    settings settings; //change speed and length at game.INIT
+    
+    edge_detector s_edgeup (#RISE(1), #FALL(0));
+    button_conditioner spd_btn_up;
+    edge_detector s_edgedown (#RISE(1), #FALL(0));
+    button_conditioner spd_btn_down;
+    edge_detector l_edgeup (#RISE(1), #FALL(0));
+    button_conditioner lth_btn_up;
+    edge_detector l_edgedown (#RISE(1), #FALL(0));
+    button_conditioner lth_btn_down;
+    edge_detector start_edge (#RISE(1), #FALL(0));
+    button_conditioner start_btn;
+
+    .rst(rst){
+
+      fsm game = {IDLE, INPUT1,DISPLAY,REPEAT, INPUT2, CHECK, SCORE};
+      
+      input_capture detect; //detect input and translate to data
+      
+      multi_seven_seg seg; //take in 6 values and output seg and sel
+      
+      displaymorse dm; //dislay data with morse code on leds
+      
+      check check; //compare data in ram and output score
+      
+    }
+
+
+  }
+
+  const LENGTH = 2;
+  
+  always {
+      ////////////////////
+      // INITIALIZATIONS//
+      ////////////////////
+  
+      reset_cond.in = ~rst_n; // input raw inverted reset signal
+      rst = reset_cond.out;   // conditioned reset
+  
+      ////////////// turn LEDs off
+      led = 8h00;
+      red_led = 0;
+      enter_led = 2b11;      //RGB led off is 1
+      guess_led = 2b11;      //RGB led off is 1
+      seg.values = {speed.q, score1.q[7:4], score1.q[3:0], score2.q[7:4], score2.q[3:0], length.q};
+      seven_seg = seg.seg;
+      seg_sel = ~seg.sel;
+  
+      ////////////// Unused
+      spi_miso = bz;          // not using SPI
+      spi_channel = bzzzz;    // not using flags
+      avr_rx = bz;            // not using serial port
+  
+      ////////////// Others
+      gnd = 0;
+      pwr = 1;
+    
+      spd_btn_up.in = button[1];  
+      spd_btn_down.in = button[0];
+      lth_btn_up.in = button[3];
+      lth_btn_down.in = button[4];
+      start_btn.in = button[2];
+      
+    
+      s_edgeup.in = spd_btn_up.out;
+      s_edgedown.in = spd_btn_down.out;
+      l_edgeup.in = lth_btn_up.out;
+      l_edgedown.in = lth_btn_down.out;
+      start_edge.in = start_btn.out;
+    
+      //////////////component
+      //ram
+      question.address = entry_count.q; // use entry_count as the RAM entry address
+      question.write_data = 8hxx;      // don't care
+      question.write_en = 0;
+    
+      answer.address = entry_count.q; // use entry_count as the RAM entry address
+      answer.write_data = 8hxx;      // don't care
+      answer.write_en = 0;
+    
+      //input_cature
+      button_col = detect.button_col;
+      detect.button_row = button_row;
+      //guess_led = detect.guessled;
+      
+      //displaymorse
+      dm.data = question.read_data;
+      dm.incr = settings.increment;
+      dm.play = 0;
+      red_led = dm.red_led; //change
+      
+      //settings
+      settings.speed = 2b00;
+    
+      //check
+      check.adata = 5h0;
+      check.bdata = 5h0;
+      check.calc = 0;  
+    
+      case(game.q){
+      game.IDLE:
+        //seg.values[1] = 4h1;
+        //settings.button = button;
+        enter_led = 0;
+        score1.d = 0;
+        score2.d = 0;
+        user.d = 0;
+        //seg.values[0] = 4h1;
+        
+        if(s_edgeup.out==1 && speed.q<6){
+          speed.d = speed.q + 1;
+          settings.speed = 2b10;
+        }
+        if (s_edgedown.out && speed.q>1){
+          speed.d = speed.q - 1;
+          settings.speed = 2b01;
+        }
+        if(l_edgeup.out==1 && length.q<15){
+          length.d = length.q + 1;
+        }
+        if (l_edgedown.out && length.q>1){
+          length.d = length.q - 1;
+        }
+
+        if(start_edge.out ==1){
+          entry_count.d = 0;
+          occupied.d = 0;          
+          game.d = game.INPUT1;
+          }
+        
+      game.INPUT1:
+          if(user.q == 0){
+            enter_led[0] = 0;
+          }
+          else{
+            enter_led[1] = 0;
+          }
+          if(detect.somechar!=5h1F && occupied.q == 0){
+          question.write_data = detect.somechar;
+          question.write_en = 1;
+          occupied.d = 1;
+          }
+          if(detect.somechar == 5h1F&&occupied.q==1){
+            delay.d = delay.q +1;
+            if(delay.q[18] == 1){
+                entry_count.d = entry_count.q+1;
+                occupied.d = 0;
+                delay.d = 0;
+            }  
+          }
+        
+          //seg.values[1] = question.read_data[3:0];
+          //seg.values[4] = entry_count.q[3:0];
+           
+        
+          if(start_edge.out ==1){
+          question.write_en = 0;
+          entry_count.d = 0;          
+          game.d = game.DISPLAY;
+          }
+       
+       game.DISPLAY:
+        //seg.values[2] = dm.value;
+        //seg.values[3] = dm.ra[3:0];
+        if (dm.ra < length.q){
+            dm.play = 1;      //dm will go to play state
+            question.address = dm.ra; //read from ram {5h12, 5he, 5h12}, when ra = 4, this block won't be executed
+            dm.data = question.read_data; //dm.data valid input should cause led to blink at correct intervals
+          } 
+          else { //ra = 4, dm.play=0 will reset dm.ra, which will cause if block to be executed again
+            dm.play = 0;
+            game.d = game.REPEAT;
+          }
+        
+       game.REPEAT:
+        if(start_edge.out ==1){
+            entry_count.d = 0;     //prepare for next input
+            occupied.d = 0;        //prepare for next input
+            game.d = game.INPUT2;
+          }
+        if(s_edgeup.out == 1||s_edgedown.out == 1||l_edgeup.out == 1||l_edgedown.out == 1){        
+          game.d = game.DISPLAY;
+        }
+       
+       game.INPUT2:
+          if(user.q == 0){
+            guess_led[1] = 0;
+          }
+          else{
+            guess_led[0] = 0;
+          }
+          if(detect.somechar!= 5h1F && occupied.q == 0){
+          answer.write_data = detect.somechar;
+          answer.write_en = 1;
+          occupied.d = 1;
+          }
+          if(detect.somechar == 5h1F&&occupied.q==1){
+            delay.d = delay.q +1;
+            if(delay.q[18] == 1){
+                entry_count.d = entry_count.q+1;
+                occupied.d = 0;
+                delay.d = 0;
+            }  
+          }
+          //seg.values[1] = answer.read_data[3:0];
+          //seg.values[4] = entry_count.q[3:0];
+        
+          if(start_edge.out ==1){
+          entry_count.d = 0;
+          occupied.d = 0;     
+          check.calc = 1;     
+          game.d = game.CHECK;
+          }
+        
+      game.CHECK:
+        guess_led[0] = 1;
+        check.calc = 1; 
+        //enter_led = check.enter_led;
+        //guess_led = check.guess_led;
+        
+        question.write_en = 0;
+        answer.write_en = 0;
+        
+        question.address = check.address;
+        answer.address = check.address;
+        
+        check.adata = question.read_data;
+        check.bdata = answer.read_data;
+        
+        seg.values[4] = check.tens;
+        seg.values[3] = check.ones;
+        seg.values[2] = check.address;
+        seg.values[1] = check.count;
+        
+        if (check.address >= length.q ){ //length = 5d5
+          check.calc = 0;
+          if(user.q == 0){
+            score1.d[7:4] = score1.q[7:4] + check.tens;
+            score1.d[3:0] = score1.q[3:0] + check.ones;
+          }
+          else{
+            score2.d[7:4] = score2.q[7:4] + check.tens;
+            score2.d[3:0] = score2.q[3:0] + check.ones;
+          }
+          game.d = game.SCORE;
+        
+        }   
+        
+      game.SCORE:
+        //seg.values[4:3] = {score1.q[7:4], score1.q[3:0]};
+        //seg.values[2:1] = {score2.q[7:4], score2.q[3:0]};
+        guess_led = 0;
+        if (start_edge.out ==1){
+          if(user.q==0){
+            user.d = 1;
+            game.d = game.INPUT1;
+          }
+          else{
+            game.d = game.IDLE;
+          }
+        }
+           
+      }
+
+  }
+}

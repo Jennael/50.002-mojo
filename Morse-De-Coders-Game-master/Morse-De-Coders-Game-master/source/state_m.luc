@@ -1,0 +1,294 @@
+module state_m (
+    input clk,                                     // clock
+    input rst,                                     // reset
+    input button[5],                               // button for level control and to start the game
+
+    output red_led,                                // to display morse code
+    output enter_led[2],                           // to indicate which player to enter
+    output guess_led[2],                           // to indicate which player to guess
+
+    output button_col[6],                          // coloums in keypad with cycling high voltage
+    input button_row[5],                           // rows in keypad
+    output seven_seg[7],                           // individual led segment in a 7segment display 
+    output seg_sel[6]                              // to select one for the 7segment display
+    
+  ) {
+  
+  .clk(clk) {
+    // RAMs used
+    simple_ram question (#SIZE(5), #DEPTH(32));    // storage space for the encoder
+    simple_ram answer (#SIZE(5), #DEPTH(32));      // storage space for the decoder
+
+    dff entry_count[5];                            // address pointer 
+    dff occupied [1];                              // to indicate when a button on  the keypad is presssed
+    dff delay[25];                                 // used to prevent a button from continuously pressing
+    dff score1[8];                                 // keeps a track of player 1's score
+    dff score2[8];                                 // keeps a track of player 2's score
+    dff user;                                      // to switch between users
+    dff speed[4](#INIT(1));                        // to store the speed level for morse code blinker
+    dff length[4](#INIT(1));                       // to store the length for input characters
+    dff count[4];                                  // to keep track of the number of characters keyed in
+    
+    
+    
+    settings settings;                             //change speed at game.INIT (using ALU function: shifter)
+    
+    
+    edge_detector s_edgeup (#RISE(1), #FALL(0));   // edge_detector for speed up button
+    button_conditioner spd_btn_up;                 // button_conditioner for speed up button to prevent de-bounce
+    edge_detector s_edgedown (#RISE(1), #FALL(0)); // edge_detector for speed down button
+    button_conditioner spd_btn_down;               // button_conditioner for speed down button to prevent de-bounce
+    edge_detector l_edgeup (#RISE(1), #FALL(0));   // edge_detector for length up button
+    button_conditioner lth_btn_up;                 // button_conditioner for length up button to prevent de-bounce
+    edge_detector l_edgedown (#RISE(1), #FALL(0)); // edge_detector for length down button
+    button_conditioner lth_btn_down;               // button_conditioner for length down button to prevent de-bounce
+    edge_detector start_edge (#RISE(1), #FALL(0)); // edge_detector for start button
+    button_conditioner start_btn;                  // button_conditioner for start button to prevent de-bounce
+    
+    .rst(rst){
+
+      fsm game = {IDLE, INPUT1,DISPLAY,REPEAT, INPUT2, CHECK, SCORE};
+      
+      input_capture detect;                        //detect input and translate to data
+      
+      multi_seven_seg seg;                         //take in 6 values and output on six 7 segment displays
+      
+      displaymorse dm;                             //dislay data with morse code on leds
+      
+      check check;                                 //compare data in ram and output score  (using ALU fuctions: compare and addition)
+      
+    }
+  }
+
+
+  always {
+    //Initialization 
+    red_led = 0;
+    enter_led = 2b11;
+    guess_led = 2b11;
+    seg.values = {speed.q, score1.q[7:4], score1.q[3:0], score2.q[7:4], score2.q[3:0], length.q};
+    seven_seg = seg.seg;
+    seg_sel = ~seg.sel;
+    
+    //prevents from button de-bouncing
+    spd_btn_up.in = button[1];  
+    spd_btn_down.in = button[0];
+    lth_btn_up.in = button[3];
+    lth_btn_down.in = button[4];
+    start_btn.in = button[2];
+    
+    //high only once when the button is pressed
+    s_edgeup.in = spd_btn_up.out;
+    s_edgedown.in = spd_btn_down.out;
+    l_edgeup.in = lth_btn_up.out;
+    l_edgedown.in = lth_btn_down.out;
+    start_edge.in = start_btn.out;
+  
+    //ram
+    question.address = entry_count.q;              // use entry_count as the RAM entry address
+    question.write_data = 8hxx;                    // don't care
+    question.write_en = 0;                         // disabling write to ram
+  
+    answer.address = entry_count.q;                // use entry_count as the RAM entry address
+    answer.write_data = 8hxx;                      // don't care
+    answer.write_en = 0;                           // disabling write to ram
+  
+    //input_cature
+    button_col = detect.button_col;                // for cycling the button_col output
+    detect.button_row = button_row;                // to detect button press on the keypad
+    
+    //displaymorse
+    dm.data = question.read_data;                  // passes the data from ram to displaymorse
+    dm.incr = settings.increment;                  // speed setting
+    dm.play = 0;                                   // disable play morse blinker
+    red_led = dm.red_led;                          // outputs morese blinker        
+    
+    //settings
+    settings.speed = 2b00;
+  
+    //check
+    check.adata = 5h0;
+    check.bdata = 5h0;
+    check.calc = 0;                                // disabled comparing for encoder and decoder data  
+  
+    case(game.q){
+      game.IDLE:
+        enter_led = 0;                             // to indicate IDLE state
+        score1.d = 0;                              // initializing score for player 1
+        score2.d = 0;                              // initializing score for player 2
+        user.d = 0;                                // initializing user to player 1
+        
+        
+        // for speed and length settings
+        if(s_edgeup.out==1 && speed.q<6){
+          speed.d = speed.q + 1;
+          settings.speed = 2b10;
+        }
+        if (s_edgedown.out && speed.q>1){
+          speed.d = speed.q - 1;
+          settings.speed = 2b01;
+        }
+        if(l_edgeup.out==1 && length.q<15){
+          length.d = length.q + 1;
+        }
+        if (l_edgedown.out && length.q>1){
+          length.d = length.q - 1;
+        }
+        
+        // to switch to encoder input mode
+        if(start_edge.out ==1){
+          entry_count.d = 0;
+          occupied.d = 0;          
+          game.d = game.INPUT1;
+        }
+      
+      //encoder input mode  
+      game.INPUT1:
+          if(user.q == 0){
+            enter_led[0] = 0;
+          }
+          else{
+            enter_led[1] = 0;
+          }
+          seg.values[0] = count.q;
+          if(count.q<length.q){ 
+            //detects if any button is pressed        
+            if(detect.somechar!=5h1F && occupied.q == 0){
+              question.write_data = detect.somechar;
+              question.write_en = 1;
+              occupied.d = 1;
+            }
+          }
+          //detects is the previously pressed button is released
+          if(detect.somechar == 5h1F&&occupied.q==1){
+            delay.d = delay.q +1;
+            if(delay.q[18] == 1){
+              entry_count.d = entry_count.q+1;
+              occupied.d = 0;
+              delay.d = 0;
+              count.d = count.q + 1;
+            }  
+          }
+          // to switch to morse blinker mode
+          if(start_edge.out ==1 && count.q >= length.q){
+            question.write_en = 0;
+            entry_count.d = 0;
+            count.d = 0;          
+            game.d = game.DISPLAY;
+          }
+       // switch to morse blinker mode
+       game.DISPLAY:
+        //plays the morse code base on encoders data in the ram
+        if (dm.ra < length.q){
+          dm.play = 1;                                                    //dm will go to play state
+          question.address = dm.ra; 
+          dm.data = question.read_data;                                   //dm.data valid input should cause led to blink at correct intervals
+        }  
+        else{
+          dm.play = 0;
+          game.d = game.REPEAT;
+        }
+        // to switch to idle mode
+        if(start_edge.out ==1){
+          entry_count.d = 0;   
+          occupied.d = 0;    
+          dm.play = 0;
+          game.d = game.IDLE;
+        }
+       
+       // repeat mode to either repeat morse blinker or continue to decoder input mode   
+       game.REPEAT:
+        // to switch to decoder input mode
+        if(start_edge.out ==1){
+          entry_count.d = 0;
+          occupied.d = 0;
+          game.d = game.INPUT2;
+        }
+        // to switch to morse blinker mode
+        if(s_edgeup.out == 1||s_edgedown.out == 1||l_edgeup.out == 1||l_edgedown.out == 1){        
+          game.d = game.DISPLAY;
+        }
+        
+       // decoder input mode
+       game.INPUT2:
+         if(user.q == 0){
+           guess_led[1] = 0;
+         }
+         else{
+           guess_led[0] = 0;
+         }
+         seg.values[0] = count.q;
+        
+         if(count.q<length.q){
+           //detects if any button is pressed 
+           if(detect.somechar!= 5h1F && occupied.q == 0){
+             answer.write_data = detect.somechar;
+             answer.write_en = 1;
+             occupied.d = 1;
+           }
+         }
+         //detects is the previously pressed button is released
+         if(detect.somechar == 5h1F&&occupied.q==1){
+           delay.d = delay.q +1;
+           if(delay.q[18] == 1){
+             entry_count.d = entry_count.q+1;
+             occupied.d = 0;
+             delay.d = 0;
+             count.d = count.q + 1;
+           }  
+         }
+        // to switch to check mode
+        if(start_edge.out ==1 && count.q >= length.q){
+          entry_count.d = 0;
+          occupied.d = 0; 
+          count.d = 0;    
+          check.calc = 1;     
+          game.d = game.CHECK;
+        }
+      
+      // check mode    
+      game.CHECK:
+        guess_led[0] = 1;
+        check.calc = 1;                                           // to enable comparing the 2 input data sets
+        
+        question.write_en = 0;
+        answer.write_en = 0;
+        
+        question.address = check.address;
+        answer.address = check.address;
+        
+        check.adata = question.read_data;
+        check.bdata = answer.read_data;
+        
+        //to store respective user's score 
+        if (check.address >= length.q ){ //length = 5d5
+          check.calc = 0;                                         // to enable comparing the 2 input data sets
+          if(user.q == 0){
+            score1.d[7:4] = score1.q[7:4] + check.tens;
+            score1.d[3:0] = score1.q[3:0] + check.ones;
+          }
+          else{
+            score2.d[7:4] = score2.q[7:4] + check.tens;
+            score2.d[3:0] = score2.q[3:0] + check.ones;
+          }
+          game.d = game.SCORE;
+        
+        }   
+      // diplay score mode  
+      game.SCORE:
+        guess_led = 0;
+        
+        // to switch to either encoder input mode or idle mode depending on player's turn
+        if (start_edge.out ==1){
+          if(user.q==0){
+            user.d = 1;
+            game.d = game.INPUT1;
+          }
+          else{
+            game.d = game.IDLE;
+          }
+        }
+           
+    }
+  }
+}

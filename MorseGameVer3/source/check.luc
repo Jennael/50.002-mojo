@@ -6,20 +6,24 @@ module check (
     input bdata[5], // answer.read_data
     
     output address[$clog2(80)],
-    output out[$clog2(80)]
+    output score[$clog2(99)]
     
   ) {
   
   dff entry_count[$clog2(80)](.clk(clk), .rst(rst)); //dealing with 80 characters per input string
   
   alu alu1;
+  alu alu2;
   sig checka[16];
   sig checkb[16];
-  sig score[$clog2(80)];
   
   always {
-    out = 0;
-    score = 0;
+    score = alu2.alu_output; //output of alu2
+    
+    alu2.a = 16b0;
+    alu2.b = 16b0;
+    alu2.alufn = 6b000000; //SUM operation
+    
     address = entry_count.q;
     
     checka = 16b0;
@@ -35,7 +39,8 @@ module check (
     if (&entry_count.q || adata == 5b11101 || bdata == 5b11101){ //AINUL
       out = score;
     } else if (alu1.alu_output!=0){ //answer and question are equal
-      score = score + 1;
+      alu2.a = score;
+      alu2.b = 1;
       entry_count.d = entry_count.q + 1;    
     } else {
       entry_count.d = entry_count.q + 1;

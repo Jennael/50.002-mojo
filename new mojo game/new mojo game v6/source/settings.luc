@@ -1,0 +1,86 @@
+module settings (
+    input clk,  // clock
+    input rst,  // reset
+
+    input button[5],
+
+    output speed_disp[$clog2(9)],
+    output length_disp[$clog2(9)],
+
+    output start[1],
+    output increment[26]
+
+  ) {
+
+  .clk(clk) {
+
+    .rst(rst) {
+
+    }
+
+    dff incr[26]; //control duration increment
+    dff speed[$clog2(9)];
+    dff length[$clog2(9)];
+
+  }
+
+
+  always {
+
+    //INITIALIZATION
+    incr.d = 26b1000;
+    increment = incr.q;
+
+    speed_disp = speed.q;
+    length_disp = length.q;
+
+    speed.d = 3;
+    length.d = 3;
+
+    start = 0;
+
+
+    //////////////////////////////////////////////////////////////////////
+    // 5-BUTTON : change speed, change maximum phrase length, start game//
+    //////////////////////////////////////////////////////////////////////
+    //00001:slower
+    //00010:faster
+    //00100:start
+    //01000:longer
+    //10000:shorter
+    ///////////////////////
+
+    case(button){
+
+      // INCREASE SPEED
+      5b00010:
+
+        if(incr.q < 26b100000000 && speed.q < 4d9 ){
+          incr.d = incr.q << 1; // incr multiply by 2
+          speed.d = speed.q + 1; // increase speed
+        }
+
+      // DECREASE SPEED
+      5b00001:
+        if(incr.q > 26b1 && speed.q > 4d0 ){// if not min increment of 0.2s
+          incr.d = incr.q >> 1 ; // incr divide by 2
+          speed.d = speed.q - 1; // decrease speed
+        }
+
+      // INCREASE LENGTH
+      5b01000: // increase length button pressed
+        if(length.q < 4d9 ){
+          length.d = length.q + 1; // increase length size by 1
+        }
+
+        // DECREASE LENGTH
+      5b10000: // decrease length button pressed
+        if(length.q > 4d0 ){
+          length.d = length.q - 1;
+        }
+
+      5b00100:
+        start = 1;
+    }
+  }
+}

@@ -10,7 +10,7 @@ module mojo_top (
     output spi_channel [4], // AVR general purpose pins (used by default to select ADC channel)
     input avr_tx,           // AVR TX (FPGA RX)
     output avr_rx,          // AVR RX (FPGA TX)
-    input avr_rx_busy,       // AVR RX buffer full
+    input avr_rx_busy,      // AVR RX buffer full
     
     /* SELF-MADE IO COMPONENTS*/
     output seven_seg[7],    // individual segments in each seven_seg

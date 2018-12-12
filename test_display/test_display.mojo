@@ -6,8 +6,8 @@
     <src>buttonmapping.luc</src>
     <src>seven_seg.luc</src>
     <src>scoredisplay.luc</src>
-    <src top="true">mojo_top.luc</src>
     <src>settings.luc</src>
+    <src top="true">mojo_top.luc</src>
     <src>input_capture.luc</src>
     <ucf>ports.ucf</ucf>
     <ucf lib="true">mojo.ucf</ucf>

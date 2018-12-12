@@ -46,9 +46,6 @@ module mojo_top (
       input_capture detect; //captures and maps input to data[5]
     }
 
-
-
-
   }
 
   always {

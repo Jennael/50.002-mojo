@@ -1,0 +1,53 @@
+module settings (
+
+    input clk,
+
+    input speed[2],
+    output newspeed[2],
+    output increment[26]
+
+  ) {
+
+.clk(clk) {
+    dff incr[26]; //control duration increment
+    //dff timer[28];
+  }
+
+alu aluspeed;
+
+always {
+  
+    aluspeed.a = incr.q[15:0];
+    aluspeed.b = 1;
+    aluspeed.alufn = 6b100010; //SHL:10xx00, SHR:10xx01
+    
+    increment = incr.q;
+    newspeed = speed;
+    
+  case(speed[1:0]){
+    
+      2b10:
+          aluspeed.a = incr.q[15:0];
+          aluspeed.b = 1;
+          aluspeed.alufn = 6b100000; //SHL
+        
+        if( incr.q < b10000 /*&& timer.q[20] = 1*/ ){
+          incr.d[15:0] = aluspeed.alu_output;
+          newspeed = 00; 
+          //timer.d = 0;     
+        }
+        
+      2b01:
+          aluspeed.a = incr.q[15:0];
+          aluspeed.b = 1;
+          aluspeed.alufn = 6b100001; //SHR    
+          
+        if( incr.q > b1 /*&& timer.q[20] = 1*/ ){      
+          incr.d[15:0] = aluspeed.alu_output;
+          newspeed = 00; 
+          //timer.d = 0;  
+        }
+        
+    }
+  }
+}

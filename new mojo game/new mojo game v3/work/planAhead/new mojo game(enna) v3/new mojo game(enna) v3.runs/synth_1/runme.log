@@ -1,0 +1,473 @@
+
+*** Running xst
+    with args -ifn "mojo_top_0.xst" -ofn "mojo_top_0.srp" -intstyle ise
+
+Reading design: mojo_top_0.prj
+
+=========================================================================
+*                          HDL Parsing                                  *
+=========================================================================
+Analyzing Verilog file "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/seven_seg_10.v" into library work
+Parsing module <seven_seg_10>.
+Analyzing Verilog file "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/decoder_11.v" into library work
+Parsing module <decoder_11>.
+Analyzing Verilog file "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/counter_9.v" into library work
+Parsing module <counter_9>.
+Analyzing Verilog file "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/buttonmapping_8.v" into library work
+Parsing module <buttonmapping_8>.
+Analyzing Verilog file "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/simple_ram_2.v" into library work
+Parsing module <simple_ram_2>.
+Analyzing Verilog file "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/settings_7.v" into library work
+Parsing module <settings_7>.
+Analyzing Verilog file "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/reset_conditioner_1.v" into library work
+Parsing module <reset_conditioner_1>.
+Analyzing Verilog file "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/multi_seven_seg_5.v" into library work
+Parsing module <multi_seven_seg_5>.
+Analyzing Verilog file "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/input_capture_4.v" into library work
+Parsing module <input_capture_4>.
+Analyzing Verilog file "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/displaymorse_6.v" into library work
+Parsing module <displaymorse_6>.
+Analyzing Verilog file "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/mojo_top_0.v" into library work
+Parsing module <mojo_top_0>.
+
+=========================================================================
+*                            HDL Elaboration                            *
+=========================================================================
+
+Elaborating module <mojo_top_0>.
+
+Elaborating module <reset_conditioner_1>.
+
+Elaborating module <simple_ram_2(SIZE=3'b101,DEPTH=6'b100000)>.
+
+Elaborating module <input_capture_4>.
+
+Elaborating module <buttonmapping_8>.
+
+Elaborating module <multi_seven_seg_5>.
+
+Elaborating module <counter_9>.
+
+Elaborating module <seven_seg_10>.
+
+Elaborating module <decoder_11>.
+WARNING:HDLCompiler:413 - "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/multi_seven_seg_5.v" Line 49: Result of 8-bit expression is truncated to fit in 7-bit target.
+WARNING:HDLCompiler:413 - "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/multi_seven_seg_5.v" Line 51: Result of 8-bit expression is truncated to fit in 6-bit target.
+
+Elaborating module <displaymorse_6>.
+WARNING:HDLCompiler:413 - "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/displaymorse_6.v" Line 69: Result of 5-bit expression is truncated to fit in 1-bit target.
+
+Elaborating module <settings_7>.
+WARNING:HDLCompiler:1127 - "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 121: Assignment to M_settings_speed_disp ignored, since the identifier is never used
+WARNING:HDLCompiler:1127 - "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 122: Assignment to M_settings_length_disp ignored, since the identifier is never used
+WARNING:HDLCompiler:1127 - "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 123: Assignment to M_settings_start ignored, since the identifier is never used
+WARNING:HDLCompiler:413 - "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 148: Result of 8-bit expression is truncated to fit in 5-bit target.
+WARNING:HDLCompiler:413 - "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 151: Result of 8-bit expression is truncated to fit in 5-bit target.
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Synthesizing Unit <mojo_top_0>.
+    Related source file is "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/mojo_top_0.v".
+WARNING:Xst:647 - Input <cclk> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <spi_ss> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <spi_mosi> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <spi_sck> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <avr_tx> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <avr_rx_busy> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+INFO:Xst:3210 - "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/mojo_top_0.v" line 117: Output port <speed_disp> of the instance <settings> is unconnected or connected to loadless signal.
+INFO:Xst:3210 - "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/mojo_top_0.v" line 117: Output port <length_disp> of the instance <settings> is unconnected or connected to loadless signal.
+INFO:Xst:3210 - "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/mojo_top_0.v" line 117: Output port <start> of the instance <settings> is unconnected or connected to loadless signal.
+    Found 1-bit register for signal <M_occupied_q>.
+    Found 25-bit register for signal <M_delay_q>.
+    Found 2-bit register for signal <M_game_q>.
+    Found 5-bit register for signal <M_entry_count_q>.
+    Found finite state machine <FSM_0> for signal <M_game_q>.
+    -----------------------------------------------------------------------
+    | States             | 4                                              |
+    | Transitions        | 7                                              |
+    | Inputs             | 3                                              |
+    | Outputs            | 4                                              |
+    | Clock              | clk (rising_edge)                              |
+    | Reset              | M_reset_cond_out (positive)                    |
+    | Reset type         | synchronous                                    |
+    | Reset State        | 00                                             |
+    | Power Up State     | 00                                             |
+    | Encoding           | auto                                           |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 25-bit adder for signal <M_delay_q[24]_GND_1_o_add_28_OUT> created at line 218.
+    Found 5-bit adder for signal <M_entry_count_q[4]_GND_1_o_add_30_OUT> created at line 220.
+    Found 1-bit 4-to-1 multiplexer for signal <M_occupied_d> created at line 162.
+    Found 5-bit 4-to-1 multiplexer for signal <M_entry_count_d> created at line 162.
+    Found 1-bit 4-to-1 multiplexer for signal <M_seg_values<7>> created at line 162.
+    Found 1-bit 4-to-1 multiplexer for signal <M_seg_values<6>> created at line 162.
+    Found 1-bit 4-to-1 multiplexer for signal <M_seg_values<5>> created at line 162.
+    Found 1-bit 4-to-1 multiplexer for signal <M_seg_values<4>> created at line 162.
+    Found 1-bit tristate buffer for signal <spi_miso> created at line 127
+    Found 1-bit tristate buffer for signal <spi_channel<3>> created at line 127
+    Found 1-bit tristate buffer for signal <spi_channel<2>> created at line 127
+    Found 1-bit tristate buffer for signal <spi_channel<1>> created at line 127
+    Found 1-bit tristate buffer for signal <spi_channel<0>> created at line 127
+    Found 1-bit tristate buffer for signal <avr_rx> created at line 127
+    Found 5-bit comparator greater for signal <n0014> created at line 199
+    Summary:
+	inferred   2 Adder/Subtractor(s).
+	inferred  31 D-type flip-flop(s).
+	inferred   1 Comparator(s).
+	inferred  35 Multiplexer(s).
+	inferred   6 Tristate(s).
+	inferred   1 Finite State Machine(s).
+Unit <mojo_top_0> synthesized.
+
+Synthesizing Unit <reset_conditioner_1>.
+    Related source file is "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/reset_conditioner_1.v".
+    Found 4-bit register for signal <M_stage_q>.
+    Summary:
+	inferred   4 D-type flip-flop(s).
+Unit <reset_conditioner_1> synthesized.
+
+Synthesizing Unit <simple_ram_2>.
+    Related source file is "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/simple_ram_2.v".
+        SIZE = 3'b101
+        DEPTH = 6'b100000
+    Found 32x5-bit single-port RAM <Mram_ram> for signal <ram>.
+    Found 5-bit register for signal <read_data>.
+    Summary:
+	inferred   1 RAM(s).
+	inferred   5 D-type flip-flop(s).
+Unit <simple_ram_2> synthesized.
+
+Synthesizing Unit <input_capture_4>.
+    Related source file is "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/input_capture_4.v".
+    Found 24-bit register for signal <M_counter_q>.
+    Found 5-bit register for signal <M_button_col_cycler_q>.
+    Found 24-bit adder for signal <M_counter_q[23]_GND_4_o_add_4_OUT> created at line 45.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+	inferred  29 D-type flip-flop(s).
+	inferred   2 Multiplexer(s).
+Unit <input_capture_4> synthesized.
+
+Synthesizing Unit <buttonmapping_8>.
+    Related source file is "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/buttonmapping_8.v".
+    Summary:
+	no macro.
+Unit <buttonmapping_8> synthesized.
+
+Synthesizing Unit <multi_seven_seg_5>.
+    Related source file is "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/multi_seven_seg_5.v".
+    Found 5-bit adder for signal <M_ctr_value[2]_GND_6_o_add_0_OUT> created at line 48.
+    Found 47-bit shifter logical right for signal <n0010> created at line 48
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+	inferred   1 Combinational logic shifter(s).
+Unit <multi_seven_seg_5> synthesized.
+
+Synthesizing Unit <counter_9>.
+    Related source file is "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/counter_9.v".
+    Found 19-bit register for signal <M_ctr_q>.
+    Found 19-bit adder for signal <M_ctr_q[18]_GND_7_o_add_0_OUT> created at line 35.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+	inferred  19 D-type flip-flop(s).
+	inferred   1 Multiplexer(s).
+Unit <counter_9> synthesized.
+
+Synthesizing Unit <seven_seg_10>.
+    Related source file is "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/seven_seg_10.v".
+    Found 16x8-bit Read Only RAM for signal <segs>
+    Summary:
+	inferred   1 RAM(s).
+Unit <seven_seg_10> synthesized.
+
+Synthesizing Unit <decoder_11>.
+    Related source file is "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/decoder_11.v".
+    Summary:
+	no macro.
+Unit <decoder_11> synthesized.
+
+Synthesizing Unit <displaymorse_6>.
+    Related source file is "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/displaymorse_6.v".
+    Found 5-bit register for signal <M_read_q>.
+    Found 1-bit register for signal <M_signal_q>.
+    Found 1-bit register for signal <M_state_q>.
+    Found 32-bit register for signal <M_tmr_q>.
+    Found 32-bit adder for signal <M_tmr_q[31]_GND_10_o_add_1_OUT> created at line 47.
+    Found 5-bit adder for signal <M_read_q[4]_GND_10_o_add_362_OUT> created at line 786.
+    Summary:
+	inferred   2 Adder/Subtractor(s).
+	inferred  39 D-type flip-flop(s).
+	inferred  62 Multiplexer(s).
+Unit <displaymorse_6> synthesized.
+
+Synthesizing Unit <settings_7>.
+    Related source file is "D:/Grand/SUTD/Term 4 (ISTD)/50.002/1D/Mojo test/new mojo game(enna) v3/work/planAhead/new mojo game(enna) v3/new mojo game(enna) v3.srcs/sources_1/imports/verilog/settings_7.v".
+WARNING:Xst:647 - Input <rst> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 4-bit register for signal <M_speed_q>.
+    Found 4-bit register for signal <M_length_q>.
+    Found 26-bit register for signal <M_incr_q>.
+    Found 4-bit subtractor for signal <M_speed_q[3]_GND_11_o_sub_8_OUT> created at line 46.
+    Found 4-bit subtractor for signal <M_length_q[3]_GND_11_o_sub_15_OUT> created at line 56.
+    Found 4-bit adder for signal <M_speed_q[3]_GND_11_o_add_2_OUT> created at line 40.
+    Found 4-bit adder for signal <M_length_q[3]_GND_11_o_add_11_OUT> created at line 51.
+    Found 26-bit comparator greater for signal <M_incr_q[25]_GND_11_o_LessThan_1_o> created at line 38
+    Found 4-bit comparator greater for signal <M_speed_q[3]_PWR_12_o_LessThan_2_o> created at line 38
+    Found 26-bit comparator greater for signal <GND_11_o_M_incr_q[25]_LessThan_6_o> created at line 44
+    Found 4-bit comparator greater for signal <GND_11_o_M_speed_q[3]_LessThan_7_o> created at line 44
+    Found 4-bit comparator greater for signal <M_length_q[3]_PWR_12_o_LessThan_11_o> created at line 50
+    Summary:
+	inferred   4 Adder/Subtractor(s).
+	inferred  34 D-type flip-flop(s).
+	inferred   5 Comparator(s).
+	inferred   6 Multiplexer(s).
+Unit <settings_7> synthesized.
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# RAMs                                                 : 3
+ 16x8-bit single-port Read Only RAM                    : 1
+ 32x5-bit single-port RAM                              : 2
+# Adders/Subtractors                                   : 11
+ 19-bit adder                                          : 1
+ 24-bit adder                                          : 1
+ 25-bit adder                                          : 1
+ 32-bit adder                                          : 1
+ 4-bit adder                                           : 2
+ 4-bit subtractor                                      : 2
+ 5-bit adder                                           : 3
+# Registers                                            : 16
+ 1-bit register                                        : 3
+ 19-bit register                                       : 1
+ 24-bit register                                       : 1
+ 25-bit register                                       : 1
+ 26-bit register                                       : 1
+ 32-bit register                                       : 1
+ 4-bit register                                        : 3
+ 5-bit register                                        : 5
+# Comparators                                          : 6
+ 26-bit comparator greater                             : 2
+ 4-bit comparator greater                              : 3
+ 5-bit comparator greater                              : 1
+# Multiplexers                                         : 106
+ 1-bit 2-to-1 multiplexer                              : 46
+ 1-bit 4-to-1 multiplexer                              : 5
+ 19-bit 2-to-1 multiplexer                             : 1
+ 24-bit 2-to-1 multiplexer                             : 1
+ 25-bit 2-to-1 multiplexer                             : 1
+ 26-bit 2-to-1 multiplexer                             : 2
+ 32-bit 2-to-1 multiplexer                             : 34
+ 4-bit 2-to-1 multiplexer                              : 4
+ 5-bit 2-to-1 multiplexer                              : 11
+ 5-bit 4-to-1 multiplexer                              : 1
+# Logic shifters                                       : 1
+ 47-bit shifter logical right                          : 1
+# Tristates                                            : 6
+ 1-bit tristate buffer                                 : 6
+# FSMs                                                 : 1
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+
+Synthesizing (advanced) Unit <counter_9>.
+The following registers are absorbed into counter <M_ctr_q>: 1 register on signal <M_ctr_q>.
+Unit <counter_9> synthesized (advanced).
+
+Synthesizing (advanced) Unit <input_capture_4>.
+The following registers are absorbed into counter <M_counter_q>: 1 register on signal <M_counter_q>.
+Unit <input_capture_4> synthesized (advanced).
+
+Synthesizing (advanced) Unit <mojo_top_0>.
+The following registers are absorbed into counter <M_delay_q>: 1 register on signal <M_delay_q>.
+Unit <mojo_top_0> synthesized (advanced).
+
+Synthesizing (advanced) Unit <seven_seg_10>.
+INFO:Xst:3218 - HDL ADVISOR - The RAM <Mram_segs> will be implemented on LUTs either because you have described an asynchronous read or because of currently unsupported block RAM features. If you have described an asynchronous read, making it synchronous would allow you to take advantage of available block RAM resources, for optimized device usage and improved timings. Please refer to your documentation for coding guidelines.
+    -----------------------------------------------------------------------
+    | ram_type           | Distributed                         |          |
+    -----------------------------------------------------------------------
+    | Port A                                                              |
+    |     aspect ratio   | 16-word x 8-bit                     |          |
+    |     weA            | connected to signal <GND>           | high     |
+    |     addrA          | connected to signal <char>          |          |
+    |     diA            | connected to signal <GND>           |          |
+    |     doA            | connected to signal <segs>          |          |
+    -----------------------------------------------------------------------
+Unit <seven_seg_10> synthesized (advanced).
+
+Synthesizing (advanced) Unit <simple_ram_2>.
+INFO:Xst:3231 - The small RAM <Mram_ram> will be implemented on LUTs in order to maximize performance and save block RAM resources. If you want to force its implementation on block, use option/constraint ram_style.
+    -----------------------------------------------------------------------
+    | ram_type           | Distributed                         |          |
+    -----------------------------------------------------------------------
+    | Port A                                                              |
+    |     aspect ratio   | 32-word x 5-bit                     |          |
+    |     clkA           | connected to signal <clk>           | rise     |
+    |     weA            | connected to signal <write_en>      | high     |
+    |     addrA          | connected to signal <address>       |          |
+    |     diA            | connected to signal <write_data>    |          |
+    |     doA            | connected to internal node          |          |
+    -----------------------------------------------------------------------
+Unit <simple_ram_2> synthesized (advanced).
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# RAMs                                                 : 3
+ 16x8-bit single-port distributed Read Only RAM        : 1
+ 32x5-bit single-port distributed RAM                  : 2
+# Adders/Subtractors                                   : 8
+ 32-bit adder                                          : 1
+ 4-bit adder                                           : 2
+ 4-bit subtractor                                      : 2
+ 5-bit adder                                           : 3
+# Counters                                             : 3
+ 19-bit up counter                                     : 1
+ 24-bit up counter                                     : 1
+ 25-bit up counter                                     : 1
+# Registers                                            : 98
+ Flip-Flops                                            : 98
+# Comparators                                          : 6
+ 26-bit comparator greater                             : 2
+ 4-bit comparator greater                              : 3
+ 5-bit comparator greater                              : 1
+# Multiplexers                                         : 103
+ 1-bit 2-to-1 multiplexer                              : 46
+ 1-bit 4-to-1 multiplexer                              : 5
+ 26-bit 2-to-1 multiplexer                             : 2
+ 32-bit 2-to-1 multiplexer                             : 34
+ 4-bit 2-to-1 multiplexer                              : 4
+ 5-bit 2-to-1 multiplexer                              : 11
+ 5-bit 4-to-1 multiplexer                              : 1
+# Logic shifters                                       : 1
+ 47-bit shifter logical right                          : 1
+# FSMs                                                 : 1
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+WARNING:Xst:2677 - Node <answer/read_data_4> of sequential type is unconnected in block <mojo_top_0>.
+Analyzing FSM <MFsm> for best encoding.
+Optimizing FSM <FSM_0> on signal <M_game_q[1:2]> with user encoding.
+-------------------
+ State | Encoding
+-------------------
+ 00    | 00
+ 01    | 01
+ 10    | 10
+ 11    | 11
+-------------------
+WARNING:Xst:2677 - Node <answer/Mram_ram5> of sequential type is unconnected in block <mojo_top_0>.
+WARNING:Xst:2677 - Node <M_counter_q_21> of sequential type is unconnected in block <input_capture_4>.
+WARNING:Xst:2677 - Node <M_counter_q_22> of sequential type is unconnected in block <input_capture_4>.
+WARNING:Xst:2677 - Node <M_counter_q_23> of sequential type is unconnected in block <input_capture_4>.
+WARNING:Xst:2677 - Node <M_tmr_q_31> of sequential type is unconnected in block <displaymorse_6>.
+WARNING:Xst:2677 - Node <M_delay_q_19> of sequential type is unconnected in block <mojo_top_0>.
+WARNING:Xst:2677 - Node <M_delay_q_20> of sequential type is unconnected in block <mojo_top_0>.
+WARNING:Xst:2677 - Node <M_delay_q_21> of sequential type is unconnected in block <mojo_top_0>.
+WARNING:Xst:2677 - Node <M_delay_q_22> of sequential type is unconnected in block <mojo_top_0>.
+WARNING:Xst:2677 - Node <M_delay_q_23> of sequential type is unconnected in block <mojo_top_0>.
+WARNING:Xst:2677 - Node <M_delay_q_24> of sequential type is unconnected in block <mojo_top_0>.
+
+Optimizing unit <mojo_top_0> ...
+
+Optimizing unit <input_capture_4> ...
+
+Optimizing unit <displaymorse_6> ...
+
+Optimizing unit <settings_7> ...
+WARNING:Xst:1293 - FF/Latch <M_incr_q_10> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_incr_q_11> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_incr_q_12> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_incr_q_13> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_incr_q_14> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_incr_q_15> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_incr_q_16> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_incr_q_17> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_incr_q_18> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_incr_q_19> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_incr_q_20> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_incr_q_21> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_incr_q_22> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_incr_q_23> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_incr_q_24> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_incr_q_25> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1293 - FF/Latch <M_incr_q_9> has a constant value of 0 in block <settings_7>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:2677 - Node <settings/M_length_q_3> of sequential type is unconnected in block <mojo_top_0>.
+WARNING:Xst:2677 - Node <settings/M_length_q_2> of sequential type is unconnected in block <mojo_top_0>.
+WARNING:Xst:2677 - Node <settings/M_length_q_1> of sequential type is unconnected in block <mojo_top_0>.
+WARNING:Xst:2677 - Node <settings/M_length_q_0> of sequential type is unconnected in block <mojo_top_0>.
+WARNING:Xst:1293 - FF/Latch <dm/M_read_q_4> has a constant value of 0 in block <mojo_top_0>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <dm/M_read_q_3> has a constant value of 0 in block <mojo_top_0>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <dm/M_read_q_2> has a constant value of 0 in block <mojo_top_0>. This FF/Latch will be trimmed during the optimization process.
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 0) on block mojo_top_0, actual ratio is 9.
+FlipFlop dm/M_tmr_q_26 has been replicated 1 time(s)
+FlipFlop dm/M_tmr_q_28 has been replicated 1 time(s)
+FlipFlop dm/M_tmr_q_29 has been replicated 1 time(s)
+FlipFlop dm/M_tmr_q_30 has been replicated 1 time(s)
+
+Final Macro Processing ...
+
+Processing Unit <mojo_top_0> :
+INFO:Xst:741 - HDL ADVISOR - A 4-bit shift register was found for signal <reset_cond/M_stage_q_3> and currently occupies 4 logic cells (2 slices). Removing the set/reset logic would take advantage of SRL32 (and derived) primitives and reduce this to 1 logic cells (1 slices). Evaluate if the set/reset can be removed for this simple shift register. The majority of simple pipeline structures do not need to be set/reset operationally.
+Unit <mojo_top_0> processed.
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 137
+ Flip-Flops                                            : 137
+
+=========================================================================
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Design Summary                             *
+=========================================================================
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+clk                                | BUFGP                  | 146   |
+-----------------------------------+------------------------+-------+
+
+Asynchronous Control Signals Information:
+----------------------------------------
+No asynchronous control signals found in this design
+
+Timing Summary:
+---------------
+Speed Grade: -2
+
+   Minimum period: 7.340ns (Maximum Frequency: 136.244MHz)
+   Minimum input arrival time before clock: 8.513ns
+   Maximum output required time after clock: 9.045ns
+   Maximum combinational path delay: 7.802ns
+
+=========================================================================
