@@ -3,15 +3,15 @@
   <files>
     <src>alu.luc</src>
     <src>displaymorse.luc</src>
-    <src>shifter16.luc</src>
-    <src>boolean16.luc</src>
     <src>buttonmapping.luc</src>
+    <src>boolean16.luc</src>
+    <src>shifter16.luc</src>
     <src>seven_seg.luc</src>
     <src>compare16.luc</src>
-    <src>multi_seven_seg.luc</src>
     <src>check.luc</src>
-    <src top="true">mojo_top.luc</src>
+    <src>multi_seven_seg.luc</src>
     <src>settings.luc</src>
+    <src top="true">mojo_top.luc</src>
     <src>input_capture.luc</src>
     <src>adder16.luc</src>
     <ucf>ports.ucf</ucf>
